@@ -21,7 +21,7 @@ export const HomeTemplate = () => {
             </header>
 
             <section id="section1" className="flex justify-end">
-                <div className="title">Tu Empresa</div>
+                <div className="title">EFR2-Soft</div>
             </section>
 
             <section className="h-screen w-100">

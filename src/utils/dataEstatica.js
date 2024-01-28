@@ -1,46 +1,37 @@
 import { v } from "../styles/variables";
-import {
-    AiOutlineHome,
-    AiOutlineSetting,
-} from "react-icons/ai";
-import { MdOutlineAnalytics } from "react-icons/md";
-// import { RiDashboard3Line } from "react-icons/ri";
-import {TbReportAnalytics} from "react-icons/tb"
-
-// import { TbPig } from "react-icons/tb";
 
 export const APP_CONFIG = {
-    companyName: 'EF2R',
-    appName: 'My Website',
-    appDesc: 'EF2R - Soluciones para tu empresa',
+    companyName: "EF2R",
+    appName: "My Website",
+    appDesc: "EF2R - Soluciones para tu empresa",
 
     type_user: {
-      admin: 'superadmin'
+        admin: "superadmin",
     },
 
     states: {
-      activo: 'activo'
+        activo: "activo",
     },
 
-    table : {
-      pageSize: 7
+    table: {
+        pageSize: 7,
     },
 
-    genericDescription : 'Genérica',
+    genericDescription: "Genérica",
 
-    whatsappData : {
+    whatsappData: {
         msgDefault: `Buen día`,
-        msgConsult: 'Deseo mas información sobre los productos que ofrecen',
+        msgConsult: "Deseo mas información sobre los productos que ofrecen",
         text: {
-            masInformacion: 'Mas información'
-        }
+            masInformacion: "Mas información",
+        },
     },
 
     movementType: {
         // ingreso: "I",
         // gasto: "G",
         incoming: "ingreso",
-        outgoing: "salida"
+        outgoing: "salida",
     },
     actionCrud: {
         update: "update",
@@ -52,32 +43,31 @@ export const APP_CONFIG = {
     },
 
     breakpoints: {
-        full: "94.2415183vw",   // se le resta el ancho del sidebar lateral: 65px
+        full: "94.2415183vw", // se le resta el ancho del sidebar lateral: 65px
         card01: "44.2415183vw",
-        card02: "45vw"
+        card02: "45vw",
     },
     productDetailOptions: [
         {
-            id: '01',
-            desc: 'Descripción'
+            id: "01",
+            desc: "Descripción",
         },
         {
-            id:'02',
-            desc: 'Especificaciones'
+            id: "02",
+            desc: "Especificaciones",
         },
         {
-            id: '03',
-            desc: 'Descargas'
-        }
+            id: "03",
+            desc: "Descargas",
+        },
     ],
 
     modules: {
-      users: 'users',
-      products: 'products',
-      product_brand: 'product_brand',
-      product_category: 'product_category',
-      
-    }
+        users: "users",
+        products: "products",
+        product_brand: "product_brand",
+        product_category: "product_category",
+    },
 };
 
 export const DesplegableUser = [
@@ -132,27 +122,32 @@ export const DesplegableUser = [
 export const LinksArray = [
     {
         label: "Home",
-        icon: AiOutlineHome,
+        icon: "noto-v1:house",
         to: "/",
     },
     {
+        label: "VENDER",
+        icon: "flat-color-icons:shop",
+        to: "/pos",
+    },
+    {
         label: "Kardex",
-        icon: MdOutlineAnalytics,
+        icon: "flat-ui:box",
         to: "/kardex",
-      },
-      {
+    },
+    {
         label: "Reportes",
-        icon: TbReportAnalytics,
-        to: "/report",
-      },
+        icon: "flat-ui:graph",
+        to: "/reportes",
+    },
 ];
 export const SecondarylinksArray = [
-    {
-        label: "Configuración",
-        icon: AiOutlineSetting,
-        to: "/config",
-    },
-
+  {
+    label: "Configuración",
+    icon:"icon-park:setting-two",
+    to: "/configurar",
+    color:"#CE82FF"
+  },
 ];
 //temas
 export const TemasData = [
@@ -167,68 +162,62 @@ export const TemasData = [
 ];
 
 //data configuracion
-export const DataModulosConfiguracion =[
+export const DataModulosConfiguracion = [
     {
-      title:"Productos",
-      subtitle:"registra tus productos",
-      icono:"https://i.ibb.co/85zJ6yG/caja-del-paquete.png",
-      link:"/config/product",
-     
+        title: "Productos",
+        subtitle: "registra tus productos",
+        icono: "https://i.ibb.co/85zJ6yG/caja-del-paquete.png",
+        link: "/config/product",
     },
     {
-      title:"Personal",
-      subtitle:"ten el control de tu personal",
-      icono:"https://i.ibb.co/5vgZ0fX/hombre.png",
-      link:"/config/user",
-     
+        title: "Personal",
+        subtitle: "ten el control de tu personal",
+        icono: "https://i.ibb.co/5vgZ0fX/hombre.png",
+        link: "/config/user",
     },
-  
+
     {
-      title:"Tu Empresa",
-      subtitle:"configura tus opciones básicas",
-      icono:"https://i.ibb.co/x7mHPgm/administracion-de-empresas.png",
-      link:"/configurar/empresa",
-      
+        title: "Tu Empresa",
+        subtitle: "configura tus opciones básicas",
+        icono: "https://i.ibb.co/x7mHPgm/administracion-de-empresas.png",
+        link: "/configurar/empresa",
     },
     {
-      title:"Categoría de productos",
-      subtitle:"asigna categorias a tus productos",
-      icono:"https://i.ibb.co/VYbMRLZ/categoria.png",
-      link:"/config/category",
-      
+        title: "Categoría de productos",
+        subtitle: "asigna categorias a tus productos",
+        icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
+        link: "/config/category",
     },
     {
-      title:"Marca de Productos",
-      subtitle:"gestiona tus marcas",
-      icono:"https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
-      link:"/config/brand",
-     
+        title: "Marca de Productos",
+        subtitle: "gestiona tus marcas",
+        icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
+        link: "/config/brand",
     },
-  
-  ]
-  //tipo usuario
-  export const TypeUserData = [
+];
+//tipo usuario
+export const TypeUserData = [
     {
-      description: "empleado",
-      icon: "🪖",
+        description: "empleado",
+        icon: "🪖",
     },
     {
-      description: "administrador",
-      icon: "👑",
+        description: "administrador",
+        icon: "👑",
     },
-  ];
-  //tipodoc
-  export const TypeDocumentData = [
+];
+//tipodoc
+export const TypeDocumentData = [
     {
-      description: "Dni",
-      icon: "🪖",
-    },
-    {
-      description: "Libreta electoral",
-      icon: "👑",
+        description: "Dni",
+        icon: "🪖",
     },
     {
-      description: "Otros",
-      icon: "👑",
+        description: "Libreta electoral",
+        icon: "👑",
     },
-  ];
+    {
+        description: "Otros",
+        icon: "👑",
+    },
+];

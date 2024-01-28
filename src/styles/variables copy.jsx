@@ -13,8 +13,7 @@ import { FaReact } from "react-icons/fa";
 import { BsArrowDown, BsArrowUpShort } from "react-icons/bs";
 import { FaBalanceScale } from "react-icons/fa";
 import logo from "../assets/ada369logo.png";
-import { FcGoogle } from "react-icons/fc";
-
+import { BsGoogle } from "react-icons/bs";
 import { RiCloseLine } from "react-icons/ri";
 import { BiSave } from "react-icons/bi";
 import { BsQuestionCircle } from "react-icons/bs";
@@ -23,10 +22,9 @@ import { SlGraph } from "react-icons/sl";
 import { BsBarChartLine } from "react-icons/bs";
 import { AiOutlineCalculator } from "react-icons/ai";
 import { BsCalendarCheck } from "react-icons/bs";
-import {IoIosArrowForward} from "react-icons/io"
-
-import {GrFormPrevious,GrCaretNext} from "react-icons/gr"
-import {MdOutlineBorderAll} from "react-icons/md"
+import {IoIosArrowForward} from "react-icons/io";
+import {GrFormPrevious,GrCaretNext} from "react-icons/gr";
+import {MdOutlineBorderAll} from "react-icons/md";
 import { MdAlternateEmail } from "react-icons/md";
 import {RiLockPasswordLine} from "react-icons/ri"
 import {MdDriveFileRenameOutline} from "react-icons/md"
@@ -40,16 +38,13 @@ import {TbBrandBitbucket} from "react-icons/tb"
 import {MdOutlineCategory} from "react-icons/md"
 import {FaBuilding} from "react-icons/fa"
 import {TbReportAnalytics} from "react-icons/tb"
-import { BsEmojiDizzy } from "react-icons/bs";
-import { FcImageFile } from "react-icons/fc";
-import { IoIosArrowBack } from "react-icons/io";
-import { GrAdd } from "react-icons/gr";
+
+import { FaPlay } from "react-icons/fa6";
+import logoClientDark from "../assets/logo-client-dark.png";
+import logoClientLight from "../assets/logo-client-light.png";
 
 
 export const v = {
-  iconoagregar:GrAdd,
-  iconoimagenvacia: FcImageFile,
-  iconoemijivacio:BsEmojiDizzy,
   iconoreportes : TbReportAnalytics,
   iconoempresa:FaBuilding,
   iconocategorias:MdOutlineCategory,
@@ -104,7 +99,7 @@ export const v = {
   flechaarribalarga: BsArrowUpShort,
   balance: FaBalanceScale,
   logo: logo,
-  iconogoogle: FcGoogle,
+  iconogoogle: BsGoogle,
   iconocerrar: RiCloseLine,
   iconoguardar: BiSave,
   iconoayuda: BsQuestionCircle,
@@ -113,13 +108,18 @@ export const v = {
   iconobars: BsBarChartLine,
   iconocalculadora: AiOutlineCalculator,
   iconocheck: BsCalendarCheck,
-
   colorSecundario: `#DAC1FF`,
   iconoflechaderecha:IoIosArrowForward,
-  iconoflechaizquierda:IoIosArrowBack,
   colorselector:"#BF94FF",
   rgbafondos:"rgba(210, 110, 249, 0.1)",
   iconoprev:GrFormPrevious,
   icononext:GrCaretNext,
-  iconotodos:MdOutlineBorderAll
+  iconotodos:MdOutlineBorderAll,
+
+  iconoPlay:FaPlay,
+  logoClientLight,
+  logoClientDark,
+  bgSecondary: '#084494',
+  padding01: "1.2rem 2rem",
+  paddingSection_01: "0 2rem"
 };

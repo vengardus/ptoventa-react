@@ -15,49 +15,52 @@ import { useUserStore } from './store/UserStore'
 import { APP_CONFIG } from './utils/dataEstatica'
 import { useUserQuery } from './querys/useUserQuery'
 import { LoginPage } from './pages/login/LoginPage'
+import { useThemeStore } from './store/ThemeStore'
 
 export const ThemeContext = createContext(null)
 
 function App() {
-  const { pathname } = useLocation()
-  const dataUser = useUserStore((state) => state.data)
-  const theme = dataUser?.theme ?? APP_CONFIG.theme.dark
-  const themeStyle = (theme === APP_CONFIG.theme.light) ? Light : Dark
-  const [sideBarOpen, setSideBarOpen] = useState(false)
-  const query = useUserQuery()
+    const { pathname } = useLocation()
+    const dataUser = useUserStore((state) => state.data)
+    // const theme = dataUser?.theme ?? APP_CONFIG.theme.dark
+    // const themeStyle = (theme === APP_CONFIG.theme.light) ? Light : Dark
+    const theme = useThemeStore((state) => state.theme)
+    const themeStyle = useThemeStore((state) => state.themeStyle)
+    const [sideBarOpen, setSideBarOpen] = useState(false)
+    const query = useUserQuery()
 
-  if (theme === APP_CONFIG.theme.dark)
-    document.querySelector('html').classList.add('dark')
-  else
-    document.querySelector('html').classList.remove('dark')
+    if (theme === APP_CONFIG.theme.dark)
+        document.querySelector('html').classList.add('dark')
+    else
+        document.querySelector('html').classList.remove('dark')
 
-  if (query.isLoading) return <SpinnerLoader />
-  if (query.isError) return <h1>Error... </h1>
+    if (query.isLoading) return <SpinnerLoader />
+    if (query.isError) return <h1>Error... </h1>
 
-  return (
-    <ThemeProvider theme={themeStyle} >
-      <AuthContextProvider> {
-        (pathname === '/login')
-          ? <LoginPage />
-          :
-          <Container className={sideBarOpen ? "active" : ""}>
-            <div className='ContentSideBar'>
-              <SideBar
-                state={sideBarOpen}
-                setState={setSideBarOpen}
-              />
-            </div>
-            <div className='ContentBurger'>
-              <MenuBurger />
-            </div>
-            <ContainerBody>
-              <MyRoutes />
-            </ContainerBody>
-          </Container>
-      }
-      </AuthContextProvider>
-    </ThemeProvider>
-  )
+    return (
+        <ThemeProvider theme={themeStyle} >
+            <AuthContextProvider> {
+                (pathname === '/login')
+                    ? <LoginPage />
+                    :
+                    <Container className={sideBarOpen ? "active" : ""}>
+                        <div className='ContentSideBar'>
+                            <SideBar
+                                state={sideBarOpen}
+                                setState={setSideBarOpen}
+                            />
+                        </div>
+                        <div className='ContentBurger'>
+                            <MenuBurger />
+                        </div>
+                        <ContainerBody>
+                            <MyRoutes />
+                        </ContainerBody>
+                    </Container>
+            }
+            </AuthContextProvider>
+        </ThemeProvider>
+    )
 }
 
 

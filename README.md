@@ -52,10 +52,12 @@ pnpm add dayjs
 pnpm add swiper
 pnpm add -D tailwindcss postcss autoprefixer  
 
-## INSTALL 
+## INSTALL (invnetario))
 pnpm add @tanstack/react-table
 pnpm add @react-pdf/renderer --save
 
+## INSTALL (pto venta)
+pnpm add -D @iconify/react
 
 ```
 

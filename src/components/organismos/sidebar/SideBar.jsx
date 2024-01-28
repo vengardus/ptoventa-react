@@ -6,7 +6,7 @@ import { APP_CONFIG, LinksArray, SecondarylinksArray } from "../../../utils/data
 import { SideBarCard } from "./SideBarCard"
 import { UserAuth } from "../../../context/AuthContext"
 import { ToggleTema } from "../ToggleTema"
-
+import { Icon } from '@iconify/react';
 
 export const SideBar = ({ state, setState }) => {
     const { user } = UserAuth()
@@ -30,7 +30,7 @@ export const SideBar = ({ state, setState }) => {
                     <div className="InfoUser">
                         {
                             user
-                            && 
+                            &&
                             <div className="ContainerImg">
                                 <img src={user?.picture} />
                             </div>
@@ -44,14 +44,14 @@ export const SideBar = ({ state, setState }) => {
 
                 {
                     LinksArray.map(({ icon, label, to }) => {
-                        const Icon = icon
+                        // const Icon = icon
                         return <div key={label} className={state ? "ContentLink active" : "ContentLink"}>
                             <NavLink
                                 to={to}
                                 className={({ isActive }) => `Links${isActive ? ' active' : ''}`}
                             >
-                                <div className="LinkIcon">{<Icon />}</div>
-                                {state && <span>{label}</span>}
+                                <Icon icon={icon} className="LinkIcon" />
+                                {state && <span className="LinkLabel">{label}</span>}
                             </NavLink>
                         </div>
                     })
@@ -59,14 +59,14 @@ export const SideBar = ({ state, setState }) => {
                 <Divider />
                 {
                     SecondarylinksArray.map(({ icon, label, to }) => {
-                        const Icon = icon
+                        //const Icon = icon
                         return <div key={label} className={state ? "ContentLink active" : "ContentLink"}>
                             <NavLink
                                 to={to}
                                 className={({ isActive }) => `Links${isActive ? ' active' : ''}`}
                             >
-                                <div className="LinkIcon">{<Icon />}</div>
-                                {state && <span>{label}</span>}
+                                <Icon icon={icon} className="LinkIcon" />
+                                {state && <span className="LinkLabel">{label}</span>}
                             </NavLink>
                         </div>
                     })
@@ -198,11 +198,15 @@ const Container = styled.div`
             color: ${(props) => props.theme.text};
             height:60px;
             .LinkIcon {
-                padding: ${() => v.smSpacing} ${() => v.mdSpacing};
                 display: flex;
+                font-size: 2.5rem;
+                padding-left: ${() => v.smSpacing};
                 svg {
-                    font-size:25px;
+                    font-size:1.8em;
                 }
+            }
+            .LinkLabel {
+                padding-left: ${() => v.smSpacing};
             }
             &.active {
                 color: ${(props) => props.theme.bg5};

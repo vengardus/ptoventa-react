@@ -1,11 +1,16 @@
 import styled from "styled-components";
+import { useThemeStore } from "../../store/ThemeStore";
 //import { APP_CONFIG } from "../../utils/dataEstatica";
 //import { UserTheme } from "../../context/ThemeContext";
 
 export function ToggleTema() {
+  const setTheme = useThemeStore((state) => state.setTheme)
+
   const CambiarTheme = () => {
-    //setTheme((theme) => (theme === APP_CONFIG.theme.light ? APP_CONFIG.theme.dark : APP_CONFIG.theme.light));
+    console.log('toggle')
+    setTheme()
   };
+  
   return (
     <Container>
       <div className="container">
