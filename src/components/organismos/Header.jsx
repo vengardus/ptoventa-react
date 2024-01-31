@@ -17,12 +17,17 @@ export function Header({ stateConfig }) {
     }
   };
 
+
   return (
     <Container>
 
       <Datauser onClick={stateConfig.setState}>
         <div className="imgContainer">
-          <img src="https://i.ibb.co/kGYgRZ8/programador.png" />
+          {
+            user?.user_metadata?.avatar_url
+            ? <img src={user?.user_metadata?.avatar_url} /> 
+            : <img src="https://i.ibb.co/kGYgRZ8/programador.png" /> 
+          }
         </div>
         <BtnCircular
           icon={<v.iconocorona />}

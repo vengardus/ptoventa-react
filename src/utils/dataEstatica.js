@@ -2,7 +2,7 @@ import { v } from "../styles/variables";
 
 export const APP_CONFIG = {
     companyName: "EF2R",
-    appName: "My Website",
+    appName: "PVenta 2.0 EF2R",
     appDesc: "EF2R - Soluciones para tu empresa",
 
     type_user: {

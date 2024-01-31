@@ -21,7 +21,7 @@ export const ThemeContext = createContext(null)
 
 function App() {
     const { pathname } = useLocation()
-    const dataUser = useUserStore((state) => state.data)
+    // const dataUser = useUserStore((state) => state.data)
     // const theme = dataUser?.theme ?? APP_CONFIG.theme.dark
     // const themeStyle = (theme === APP_CONFIG.theme.light) ? Light : Dark
     const theme = useThemeStore((state) => state.theme)

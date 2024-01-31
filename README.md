@@ -730,4 +730,5 @@ execute function delete_kardex();
     - Secreto del cliente: dato B
   - Copiar dato A y dato B en la configuración Provider Google de supabase
   - Listo !!!
+  - OBS: Si hay problema de permisos, hacer la app en cloud : en la seción de consentimiento como publicar o bien en modo de pruebas pero ingresarel correo de prueba.
   

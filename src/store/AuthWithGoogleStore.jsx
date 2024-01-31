@@ -7,6 +7,7 @@ export const useAuthWithGoogleStore = create((set) => ({
     isAuth: false,
 
     signInWithGoogle: async () => {
+        console.log('login')
         try {
             const { data, error } = await supabase.auth.signInWithOAuth({
                 provider: "google"
@@ -15,7 +16,7 @@ export const useAuthWithGoogleStore = create((set) => ({
             if (error) throw new error('Ocurrió un error durante la autenticación.')
 
             set({ isAuth: true })
-
+            console.log('AUTH', data)
             return data
         }
         catch (error) {

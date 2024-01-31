@@ -14,6 +14,9 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   gap: 10px;
+  span {
+    color: ${(props) => props.theme.text}
+  }
   p {
     color: #f46943;
   }

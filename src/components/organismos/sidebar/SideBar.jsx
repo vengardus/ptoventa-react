@@ -32,7 +32,11 @@ export const SideBar = ({ state, setState }) => {
                             user
                             &&
                             <div className="ContainerImg">
-                                <img src={user?.picture} />
+                                {
+                                user?.user_metadata?.avatar_url
+                                ? <img src={user?.user_metadata?.avatar_url} /> 
+                                : <img src={user?.picture} />
+                                }
                             </div>
                         }
                         {

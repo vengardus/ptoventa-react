@@ -6,11 +6,7 @@ import { useThemeStore } from "../../store/ThemeStore";
 export function ToggleTema() {
   const setTheme = useThemeStore((state) => state.setTheme)
 
-  const CambiarTheme = () => {
-    console.log('toggle')
-    setTheme()
-  };
-  
+    
   return (
     <Container>
       <div className="container">
@@ -19,7 +15,7 @@ export function ToggleTema() {
             id="switch"
             className="input"
             type="checkbox"
-            onClick={CambiarTheme}
+            onClick={setTheme}
           />
           <div className="icon icon--moon">
             <svg
