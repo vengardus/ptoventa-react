@@ -1,10 +1,10 @@
-import Swal from "sweetalert2";
+//import Swal from "sweetalert2";
 import { SupabaseCrud } from "./supabase.crud";
 import { consoleError } from "../utils/messages";
 
 export class CategoryModel extends SupabaseCrud {
     constructor() {
-        super("inv_categories");
+        super("pv_categories");
     }
 
     async getAll(p) {
@@ -12,22 +12,53 @@ export class CategoryModel extends SupabaseCrud {
         return data;
     }
 
-    async insert(p) {
-        const { error } = await this.supabase.rpc("insert_category", p);
+    async insert(p, file = undefined) {
+        const { error, data } = await this.supabase.rpc("insert_category", p);
         if (error) {
             this.error = true;
             this.message = error.message;
-            Swal.fire({
-                //position: "top-end",
-                icon: "error",
-                title: "Oops",
-                text: `Error al insertar categoría: ${error.message}`,
-                //showConfirmButton: false,
-                //timer: 1700,
-            });
+            // Swal.fire({
+            //     icon: "error",
+            //     title: "Oops",
+            //     text: `Error al insertar categoría: ${error.message}`,
+            // });
+            return [false, null];
         }
 
-        return error ? false : true;
+        const new_id = data;
+        const img = file.size;
+        if (img === undefined) 
+            return [true, new_id];
+
+        const urlImage = await this.upload_image(file, new_id);
+        if ( ! urlImage )
+            return [false, new_id]
+
+        const dataUpdate = {
+            icon: urlImage.publicUrl,
+            id: new_id,
+        };
+        return [this.update(dataUpdate), new_id];
+    }
+
+    async upload_image(file, id_category) {
+        const root = `categories/${id_category}`;
+        const { data, error } = await this.supabase.storage
+            .from("images")
+            .upload(root, file, {
+                upsert: true,
+                cacheControl: 0,
+            });
+
+        if (data) {
+            const { data: urlImage } = this.supabase.storage
+                .from("images")
+                .getPublicUrl(root);
+            return urlImage;
+        }
+
+        if (error) this.message = error.message;
+        return null;
     }
 
     async filter(p) {
@@ -41,7 +72,7 @@ export class CategoryModel extends SupabaseCrud {
         if (this.error) {
             this.message = error.message;
             consoleError(
-                `${BrandModel.name}.${this.filter.name}.${this.TABLE_NAME}: ${error.message}`
+                `${CategoryModel.name}.${this.filter.name}.${this.TABLE_NAME}: ${error.message}`
             );
         }
 

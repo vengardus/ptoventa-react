@@ -17,7 +17,11 @@ export const APP_CONFIG = {
         pageSize: 7,
     },
 
-    genericDescription: "Genérica",
+    defaultValues: {
+        currencySymbol: 'S/.',
+        genericDescription: "Genérica",
+        codSuperadmin: 'S'
+    },
 
     whatsappData: {
         msgDefault: `Buen día`,

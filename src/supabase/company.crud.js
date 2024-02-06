@@ -4,7 +4,7 @@ import { SupabaseCrud } from "./supabase.crud";
 
 export class CompanyModel extends SupabaseCrud {
     constructor() {
-        super("inv_companies");
+        super("pv_companies");
     }
 
     async getByUser(p) {

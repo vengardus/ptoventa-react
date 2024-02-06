@@ -35,7 +35,7 @@ export const TableProduct = ({
   const deleteProduct = useProductStore((state) => state.delete)
 
   const editIten = (item) => {
-    if (item.description.trim() == APP_CONFIG.genericDescription) {
+    if (item.description.trim() == APP_CONFIG.defaultValues.genericDescription) {
       modalAlert({ type: 'warning', text: 'No se puede editar marca genérica.' })
       return
     }
@@ -43,7 +43,7 @@ export const TableProduct = ({
   }
 
   const deleteItem = (item) => {
-    if (item.description.trim() == APP_CONFIG.genericDescription) {
+    if (item.description.trim() == APP_CONFIG.defaultValues.genericDescription) {
       modalAlert({ type: 'warning', text: 'No se puede eliminar marca genérica.' })
       return
     }

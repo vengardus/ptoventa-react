@@ -2,12 +2,35 @@ import { useState } from "react"
 import { Header } from "../../organismos/Header"
 import { BannerCompany } from "../../organismos/BannerCompany"
 import { useCompanyStore } from "../../../store/CompanyStore"
+import { useQuery } from "@tanstack/react-query"
+import { UserModel } from "../../../supabase/user.crud"
 
 
 export const HomeTemplate = () => {
     const [state, setState] = useState(false)
     const dataCompany = useCompanyStore((state) => state.data)
     const countUsersCompany = useCompanyStore((state) => state.countUsersCompany)
+
+    // TEST
+    const getAllCompany = useCompanyStore((state) => state.getAll)
+    const insertCompany = useCompanyStore((state) => state.insert)
+
+    useQuery({
+        queryKey: ['pv_companies.getAll'],
+        queryFn: () => getAllCompany()
+    })
+    //
+
+    const test = async () => {
+        // const {data, errorMessage} = await insertCompany(undefined)
+        // console.log('insert-resp', data? 'OK': errorMessage)
+        // console.log('Companies', dataCompany)
+        // const oModel = new UserModel()
+        // const data = oModel.insert_superadmin({
+        //     p_id_auth
+        // })
+    }
+
 
     return (
         <div className="containerTemplate">
@@ -20,6 +43,11 @@ export const HomeTemplate = () => {
                 />
             </header>
 
+            <section id="section0" className="flex flex-col justify-end">
+                <div>Test</div>
+                <button onClick={test} className="border p-3">TEST</button>
+            </section>
+
             <section id="section1" className="flex justify-end">
                 <div className="title">EFR2-Soft</div>
             </section>
@@ -31,6 +59,8 @@ export const HomeTemplate = () => {
                     countUsersCompany={countUsersCompany}
                 />
             </section>
+
+
         </div>
     )
 }

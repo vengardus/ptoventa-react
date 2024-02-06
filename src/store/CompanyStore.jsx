@@ -10,7 +10,7 @@ export const useCompanyStore = create((set) => ({
         const oModel = new CompanyModel()
         const data = await oModel.getByUser(p)
         set({ data: data?.inv_companies })
-        return data?.inv_companies?? []
+        return data?.inv_companies ?? []
     },
 
     getCountUsersCompany: async (p) => {
@@ -18,8 +18,27 @@ export const useCompanyStore = create((set) => ({
         const data = await oModel.getCountUserByCompany({
             id_company: p.id_company
         })
-        set({ countUsersCompany: data?? 0 })
-        return data?? 0
-    }
+        set({ countUsersCompany: data ?? 0 })
+        return data ?? 0
+    },
+
+
+    getAll: async () => {
+        const oModel = new CompanyModel()
+        const data = await oModel.getAll()
+        set({ data: data })
+        return data
+    },
+
+    insert: async (p) => {
+        const oModel = new CompanyModel()
+        const data = await oModel.insert(p)
+        if (data)
+            set((state) => ({
+                data: state.getAll(state.parameters)
+            }))
+
+        return { data, errorMessage: oModel.message}
+    },
 
 }))

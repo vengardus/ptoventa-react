@@ -4,7 +4,7 @@ import { SupabaseCrud } from "./supabase.crud";
 
 export class UserModel extends SupabaseCrud {
     constructor() {
-        super("inv_users");
+        super("pv_users");
     }
 
     async authSignUp(p) {
@@ -20,10 +20,16 @@ export class UserModel extends SupabaseCrud {
     }
 
 
-    async get() {
-        const idAuthSupabase = await getIdAuthSupabase();
+    async getByIdAuth(id_auth=undefined) {
+        console.log('getByIdAuth', id_auth)
+        let idAuthSupabase 
+        if ( id_auth === undefined)
+            idAuthSupabase = await getIdAuthSupabase();
+        else {
+            idAuthSupabase = id_auth
+        }
         const data = await super.getByField("id_auth", idAuthSupabase);
-
+        console.log('AUTH::', data)
         return data ? data[0] : null;
     }
 
@@ -66,4 +72,10 @@ export class UserModel extends SupabaseCrud {
         return data
     }
 
+    async insertSuperadmin(p) {
+        console.log('insert_superadmin', p)
+        const  data  = await this.supabase.rpc("insert_superadmin", p);
+        console.log('insertadmin', data)
+        return data
+    }
 }

@@ -2,6 +2,10 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 import { supabase } from "../supabase/supabase.config";
+import { APP_CONFIG } from "../utils/dataEstatica";
+import { UserModel } from "../supabase/user.crud";
+import { useUserStore } from "../store/UserStore";
+import { insertSuperAdmin } from "../supabase/auth";
 // import { UserModel } from "../supabase/user.crud";
 
 
@@ -9,14 +13,16 @@ const AuthContext = createContext()
 
 export const AuthContextProvider = ({ children }) => {
     const [user, setUser] = useState([])
+
     useEffect(() => {
         const { data: authListener } = supabase.auth.onAuthStateChange(
             async (event, session) => {
                 if (session == null)
                     setUser(null)
                 else {
-                    //console.log(session)
+                    console.log('session', session.user.user_metadata, session.user.id)
                     setUser(session.user)
+                    insertSuperAdmin(session.user.user_metadata, session.user.id)
                 }
             }
         )
@@ -25,16 +31,6 @@ export const AuthContextProvider = ({ children }) => {
         }
     }, [])
 
-    // const _userInsert = async (dataProvider, idAuthSupabase) => {
-    //     const p = {
-    //         username: dataProvider.name,
-    //         photo: dataProvider.picture,
-    //         idauth_supabase: idAuthSupabase
-    //     }
-    //     const oUserModel = new UserModel()
-    //     if (!await oUserModel.getByField('name', p.username))
-    //         await oUserModel.insert(p)
-    // }
 
     return <AuthContext.Provider value={{ user }}>
         {children}

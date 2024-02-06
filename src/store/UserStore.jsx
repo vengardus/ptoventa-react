@@ -38,7 +38,7 @@ export const useUserStore = create((set) => ({
 
     get: async () => {
         const oUserModel = new UserModel()
-        const data = await oUserModel.get()
+        const data = await oUserModel.getByIdAuth()
         set({ data: data })
         return data ?? []
     },
@@ -183,6 +183,8 @@ export const useUserStore = create((set) => ({
         DataModulosConfiguracion.push(...result)
 
         return dataPermissions
-    }
+    },
+
+    
 
 }))

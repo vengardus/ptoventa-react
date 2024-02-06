@@ -71,7 +71,7 @@ Configurada con proyecto Supabase: gardodb
 
 ## Supabase: Fnctions and Triggers
 
-```plpgsql: trigger & function insert_default from pv_companies
+```plpgsql: YA NO VA!!! trigger & function insert_default from pv_companies
 create or replace function insert_default_from_company()
 returns trigger
 language plpgsql
@@ -88,6 +88,68 @@ create or replace trigger trigger_company_default
 after insert on pv_companies
 for each row
 execute function insert_default_from_company();
+```
+
+```plpgsql: inser_superadmin
+CREATE OR REPLACE FUNCTION insert_superadmin(
+  p_id_auth text,
+  p_id_role int,
+  p_email text, 
+  p_currency_symbol text,
+  p_company_name text,
+  p_doc_type_name text
+)
+RETURNS INT
+LANGUAGE plpgsql
+AS $$
+DECLARE
+    new_id_company INT;
+    new_id_doc_type INT;
+    new_id_branch INT;
+    new_id_user INT;
+BEGIN
+    -- Verificar la existencia del rol
+    IF NOT EXISTS (SELECT 1 FROM pv_roles WHERE id = p_id_role) THEN
+        RAISE EXCEPTION 'El rol especificado no existe.';
+    END IF;
+    
+    -- Verificar la existencia de la compañía para el superadmin
+    IF EXISTS (SELECT 1 FROM pv_companies WHERE name = p_company_name AND id_auth = p_id_auth) THEN
+        RAISE EXCEPTION 'La compañía ya existe para el superadmin %.', p_email;
+    END IF;
+    
+    BEGIN
+        -- Insert company
+        INSERT INTO pv_companies(name, currency_symbol, id_auth)
+        VALUES(p_company_name, p_currency_symbol, p_id_auth)
+        RETURNING id INTO new_id_company;
+
+        -- Insert doc_type
+        INSERT INTO pv_doc_types(description, id_company)
+        VALUES(p_doc_type_name, new_id_company)
+        RETURNING id INTO new_id_doc_type;
+        
+        -- Insert branch
+        INSERT INTO pv_branches(name, id_company)
+        VALUES(p_company_name, new_id_company)
+        RETURNING id INTO new_id_branch;
+
+        -- Insert user
+        INSERT INTO pv_users(id_doc_type, id_role, email, id_auth)
+        VALUES(new_id_doc_type, p_id_role, p_email, p_id_auth)
+        RETURNING id INTO new_id_user;
+
+        -- insert user_branch
+        INSERT INTO pv_user_branch(id_user, id_branch)
+        VALUES(new_id_user, new_id_branch);
+
+        RETURN new_id_user;
+    EXCEPTION
+        WHEN unique_violation THEN
+            RAISE EXCEPTION 'Error de violación de unicidad al insertar la compañía.';
+    END;
+END;
+$$;
 ```
 
 ## Ayuda memoria
