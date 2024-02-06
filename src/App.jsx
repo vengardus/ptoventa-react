@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { useLocation } from 'react-router-dom'
 import { ThemeProvider, styled } from 'styled-components'
 import { createContext } from 'react'
+import { ReactQueryDevtools } from '@tanstack/react-query-devtools'
 
 import { MyRoutes } from './routers/routes'
 import { Light, Dark } from './styles/themes'
@@ -27,15 +28,15 @@ function App() {
     const theme = useThemeStore((state) => state.theme)
     const themeStyle = useThemeStore((state) => state.themeStyle)
     const [sideBarOpen, setSideBarOpen] = useState(false)
-    const query = useUserQuery()
+    //const query = useUserQuery()
 
     if (theme === APP_CONFIG.theme.dark)
         document.querySelector('html').classList.add('dark')
     else
         document.querySelector('html').classList.remove('dark')
 
-    if (query.isLoading) return <SpinnerLoader />
-    if (query.isError) return <h1>Error... </h1>
+    // if (query.isLoading) return <SpinnerLoader />
+    // if (query.isError) return <h1>Error... </h1>
 
     return (
         <ThemeProvider theme={themeStyle} >
@@ -58,6 +59,9 @@ function App() {
                         </ContainerBody>
                     </Container>
             }
+            
+            <ReactQueryDevtools initialIsOpen={false} />
+
             </AuthContextProvider>
         </ThemeProvider>
     )

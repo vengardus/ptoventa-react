@@ -20,7 +20,7 @@ export const AuthContextProvider = ({ children }) => {
                 if (session == null)
                     setUser(null)
                 else {
-                    console.log('session', session.user.user_metadata, session.user.id)
+                    //console.log('session', session.user.user_metadata, session.user.id)
                     setUser(session.user)
                     insertSuperAdmin(session.user.user_metadata, session.user.id)
                 }

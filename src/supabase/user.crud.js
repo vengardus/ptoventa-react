@@ -29,7 +29,6 @@ export class UserModel extends SupabaseCrud {
             idAuthSupabase = id_auth
         }
         const data = await super.getByField("id_auth", idAuthSupabase);
-        console.log('AUTH::', data)
         return data ? data[0] : null;
     }
 
@@ -75,7 +74,6 @@ export class UserModel extends SupabaseCrud {
     async insertSuperadmin(p) {
         console.log('insert_superadmin', p)
         const  data  = await this.supabase.rpc("insert_superadmin", p);
-        console.log('insertadmin', data)
         return data
     }
 }

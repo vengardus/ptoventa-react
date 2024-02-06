@@ -9,6 +9,7 @@ import { HomePage } from "../pages/home/HomePage"
 import { SpinnerLoader } from "../components/moleculas/SpinnerLoader"
 import { Error } from "../components/moleculas/Error"
 import { useInitLoadQuery } from "../querys/useInitLoadQuery"
+import CategoriesPage from "../pages/categories/CategoriesPage"
 
 
 export function MyRoutes() {
@@ -29,6 +30,7 @@ export function MyRoutes() {
             >
                 <Route path="/" element={<HomePage />} />
                 <Route path="/config" element={<ConfigPage />} />
+                <Route path="/config/categories" element={<CategoriesPage />} />
             </Route>
         </Routes>
 

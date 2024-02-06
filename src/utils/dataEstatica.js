@@ -149,7 +149,7 @@ export const SecondarylinksArray = [
   {
     label: "Configuración",
     icon:"icon-park:setting-two",
-    to: "/configurar",
+    to: "/config",
     color:"#CE82FF"
   },
 ];
@@ -190,7 +190,7 @@ export const DataModulosConfiguracion = [
         title: "Categoría de productos",
         subtitle: "asigna categorias a tus productos",
         icono: "https://i.ibb.co/VYbMRLZ/categoria.png",
-        link: "/config/category",
+        link: "/config/categories",
     },
     {
         title: "Marca de Productos",
