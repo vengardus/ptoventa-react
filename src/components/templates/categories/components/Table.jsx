@@ -1,15 +1,14 @@
-import { useUserStore } from "../../../../store/user.store"
+import { useCategoryStore } from "../../../../store/category.store"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
 import { modalAlert } from "../../../../utils/modalAlert"
 import { ContentActionsTable } from "../../../organismos/table/ContentActionsTable"
 import { TableGeneric } from "../../../organismos/table/TableGeneric"
 
-
-export const UserTable = ({
+export const Table = ({
     data,
     actionRegister,
 }) => {
-    const deleteUser = useUserStore((state) => state.delete)
+    const deleteRegister = useCategoryStore((state) => state.delete)
 
     const editItem = (item) => {
         if (item.type_user.trim() == APP_CONFIG.type_user.admin) {
@@ -27,7 +26,7 @@ export const UserTable = ({
         modalAlert({ type: 'delete' })
             .then(async (result) => {
                 if (result.isConfirmed) {
-                    if (await deleteUser({ id: item.id }))
+                    if (await deleteRegister({ id: item.id }))
                         modalAlert({ type: 'infoTimer', text: 'Se eliminó registro.' })
                     else
                         modalAlert({ type: 'warning', text: 'Error al eliminar registro.' })
@@ -37,19 +36,19 @@ export const UserTable = ({
     
     const tableColumns = [
         {
-            accessorKey: "name",
-            header: "Nombre",
+            accessorKey: "description",
+            header: "Descripción",
             cell: (info) => <span>{info.getValue()}</span>
         },
         {
-            accessorKey: "email",
-            header: "Email",
+            accessorKey: "color",
+            header: "Color",
             cell: (info) => <span>{info.getValue()}</span>
         },
         {
-            accessorKey: "type_user",
-            header: "T.User",
-            cell: (info) => <span>{info.getValue()}</span>
+            accessorKey: "icon",
+            header: "Icon",
+            cell: (info) => <span>{info.getValue()?? '-'}</span>
         },
         {
             accessorKey: "actions",
@@ -59,14 +58,19 @@ export const UserTable = ({
                 funcEdit={() => editItem(info.row.original)}
                 funcDelete={() => deleteItem(info.row.original)}
             />
+            
         },
     ]
-    
+
+    /* custom columns */ 
+    const customColumns = tableColumns.map(item => ({accessorKey:item.accessorKey, responsive:''}))
+	customColumns[2].responsive='hidden sm:block'
 
     return (
         <TableGeneric
             data={data ?? []}
             columns={tableColumns}
+            customColumns={customColumns}
             actionRegister={(action, data) => actionRegister(action, data)}
         />
     )

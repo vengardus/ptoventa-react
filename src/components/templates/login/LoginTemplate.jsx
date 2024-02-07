@@ -15,7 +15,7 @@ import carrito from "../../../assets/carrito.svg";
 import logo from "../../../assets/inventarioslogo.png";
 import { RegisterAdmin } from "../../organismos/form/RegisterAdmin";
 import { Line } from "../../atomos/Line";
-import { useAuthWithGoogleStore } from "../../../store/AuthWithGoogleStore";
+import { useAuthWithGoogleStore } from "../../../store/authWithGoogle.store";
 import { APP_CONFIG } from "../../../utils/dataEstatica";
 
 

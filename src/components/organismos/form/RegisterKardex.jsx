@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useUserStore } from "../../../store/UserStore";
-import { useCompanyStore } from "../../../store/CompanyStore";
+import { useUserStore } from "../../../store/user.store";
+import { useCompanyStore } from "../../../store/company.store";
 import { APP_CONFIG} from "../../../utils/dataEstatica";
 import { InputText } from "./InputText";
 import { BtnSave } from "../../moleculas/BtnSave";

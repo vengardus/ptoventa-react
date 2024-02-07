@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Header } from "../../organismos/Header"
 import { BannerCompany } from "../../organismos/BannerCompany"
-import { useCompanyStore } from "../../../store/CompanyStore"
+import { useCompanyStore } from "../../../store/company.store"
 import { useQuery } from "@tanstack/react-query"
 import { UserModel } from "../../../supabase/user.crud"
 

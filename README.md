@@ -58,6 +58,7 @@ pnpm add @react-pdf/renderer --save
 
 ## INSTALL (pto venta)
 pnpm add -D @iconify/react
+pnpm add --save react-lazy-load-image-component
 
 ```
 

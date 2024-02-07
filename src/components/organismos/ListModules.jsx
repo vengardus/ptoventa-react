@@ -2,7 +2,7 @@ import styled from "styled-components";
 import { useEffect, useState } from "react";
 import { useModuleStore } from "../../store/ModuleStore";
 import { APP_CONFIG } from "../../utils/dataEstatica";
-import { useUserStore } from "../../store/UserStore";
+import { useUserStore } from "../../store/user.store";
 
 
 export function ListModules({

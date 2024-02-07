@@ -11,7 +11,7 @@ export const TemplateBaseSectionTitle = ({
             <ContentFilter >
                 <div className="title">{title}</div>
                 <BtnFilter
-                    bgColor={'#f6f3f3'}
+                    bgColor={v.colorPrincipal}
                     textColor={'#353535'}
                     icon={<v.agregar />}
                     func={(action, data) => actionRegister(action, data)}

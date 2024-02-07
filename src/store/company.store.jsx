@@ -9,8 +9,8 @@ export const useCompanyStore = create((set) => ({
     getByUser: async (p) => {
         const oModel = new CompanyModel()
         const data = await oModel.getByUser(p)
-        set({ data: data?.inv_companies })
-        return data?.inv_companies ?? []
+        set({ data: data})
+        return data?? []
     },
 
     getCountUsersCompany: async (p) => {

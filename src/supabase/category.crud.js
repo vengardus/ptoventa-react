@@ -3,6 +3,9 @@ import { SupabaseCrud } from "./supabase.crud";
 import { consoleError } from "../utils/messages";
 
 export class CategoryModel extends SupabaseCrud {
+    storageRoot = "images";
+    storagePath = "categories/";
+
     constructor() {
         super("pv_categories");
     }
@@ -13,32 +16,31 @@ export class CategoryModel extends SupabaseCrud {
     }
 
     async insert(p, file = undefined) {
-        const { error, data } = await this.supabase.rpc("insert_category", p);
-        if (error) {
-            this.error = true;
-            this.message = error.message;
+        //const { error, data } = await this.supabase.rpc("insert_category", p);
+        const data = this.insert(p);
+        if (!data) {
+            // this.error = true;
+            // this.message = this.message;
             // Swal.fire({
             //     icon: "error",
             //     title: "Oops",
             //     text: `Error al insertar categoría: ${error.message}`,
             // });
-            return [false, null];
+            return { success: false, id: null };
         }
 
         const new_id = data;
         const img = file.size;
-        if (img === undefined) 
-            return [true, new_id];
+        if (img === undefined) return { success: true, id: new_id };
 
         const urlImage = await this.upload_image(file, new_id);
-        if ( ! urlImage )
-            return [false, new_id]
+        if (!urlImage) return { success: false, id: new_id };
 
         const dataUpdate = {
             icon: urlImage.publicUrl,
             id: new_id,
         };
-        return [this.update(dataUpdate), new_id];
+        return { success: this.update(dataUpdate), id: new_id };
     }
 
     async upload_image(file, id_category) {
@@ -77,5 +79,19 @@ export class CategoryModel extends SupabaseCrud {
         }
 
         return data;
+    }
+
+    async delete(p) {
+        const success = this.delete(p);
+        if (!success || p.icon == null) return success;
+
+        this.error = false
+        const path = `${this.storagePath}${p.id}`;
+        const {error} = await this.supabase.storage.from(this.storageRoot).remove(path);
+        if ( error ) {
+            this.error = true
+            this.message = error.message
+        }
+        return this.error
     }
 }

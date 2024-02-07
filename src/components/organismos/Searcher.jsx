@@ -1,5 +1,7 @@
 import styled from "styled-components"
-import { FaSearch } from "react-icons/fa"
+//import { FaSearch } from "react-icons/fa"
+import { Icon } from "../atomos/Icon"
+import { v } from "../../styles/variables"
 
 export const Searcher = ({
     setSearcher
@@ -11,7 +13,8 @@ export const Searcher = ({
     return (
         <Container>
             <article className="content">
-                <FaSearch className="icon" />
+                {/* <FaSearch className="icon" /> */}
+                <Icon>{<v.iconobuscar/>}</Icon>
                 <input
                     onChange={handleOnChange}
                     placeholder="...buscar"
@@ -29,7 +32,7 @@ const Container = styled.div`
     color: ${(props) => props.theme.text};
     display: flex;
     height: 60px;
-    width: 60%;
+    width: 100%;
     border: 1px solid #414244;
     
     .content {

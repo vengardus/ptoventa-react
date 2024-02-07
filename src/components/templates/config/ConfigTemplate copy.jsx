@@ -1,7 +1,7 @@
 import { useState } from "react"
 import styled from "styled-components"
 import { v } from "../../../styles/variables"
-import { useUserStore } from "../../../store/UserStore"
+import { useUserStore } from "../../../store/user.store"
 import { APP_CONFIG, TemasData } from "../../../utils/dataEstatica"
 import { Header } from "../../organismos/Header"
 import { Selector } from "../../organismos/Selector"

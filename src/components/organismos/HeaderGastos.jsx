@@ -3,7 +3,7 @@ import styled from "styled-components"
 import { APP_CONFIG } from "../../utils/dataEstatica"
 import { Link } from "react-router-dom"
 import { Device } from "../../styles/breakpoints"
-// import { useUserStore } from "../../store/UserStore"
+// import { useUserStore } from "../../store/user.store"
 
 
 export const HeaderGastos = () => {

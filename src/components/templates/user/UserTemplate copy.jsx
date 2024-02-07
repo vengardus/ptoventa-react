@@ -1,6 +1,6 @@
 import { useState } from "react"
 import { RegisterUser } from "../../organismos/form/RegisterUser"
-import { useUserStore } from "../../../store/UserStore"
+import { useUserStore } from "../../../store/user.store"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { APP_CONFIG } from "../../../utils/dataEstatica"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"

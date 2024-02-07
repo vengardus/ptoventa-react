@@ -12,11 +12,10 @@ import { AuthContextProvider } from './context/AuthContext'
 import { SideBar } from './components/organismos/sidebar/SideBar'
 import { MenuBurger } from './components/organismos/MenuBurger'
 import { SpinnerLoader } from './components/moleculas/SpinnerLoader'
-import { useUserStore } from './store/UserStore'
+import { useUserStore } from './store/user.store'
 import { APP_CONFIG } from './utils/dataEstatica'
-import { useUserQuery } from './querys/useUserQuery'
 import { LoginPage } from './pages/login/LoginPage'
-import { useThemeStore } from './store/ThemeStore'
+import { useThemeStore } from './store/theme.store'
 
 export const ThemeContext = createContext(null)
 

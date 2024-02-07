@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useThemeStore } from "../../store/ThemeStore";
+import { useThemeStore } from "../../store/theme.store";
 //import { APP_CONFIG } from "../../utils/dataEstatica";
 //import { UserTheme } from "../../context/ThemeContext";
 

@@ -1,11 +1,11 @@
-import { useUserStore } from '../store/UserStore'
-import { useCompanyStore } from '../store/CompanyStore'
+import { useUserStore } from '../store/user.store'
+import { useCompanyStore } from '../store/company.store'
 import { useQuery } from '@tanstack/react-query'
 
 export const useInitLoadQuery = () => {
     const userGet = useUserStore((state) => state.get)
-    // const getPermissionsLoggedInUser = useUserStore((state) => state.getPermissionsLoggedInUser)
     const companyGetByUser = useCompanyStore((state) => state.getByUser)
+    // const getPermissionsLoggedInUser = useUserStore((state) => state.getPermissionsLoggedInUser)
 
     const queryUser =  useQuery({
         queryKey:['userGet'],
@@ -13,11 +13,11 @@ export const useInitLoadQuery = () => {
     })
 
     useQuery({
-        queryKey: ['getCompanyByUser', queryUser.data?.id], 
+        queryKey: ['getCompanyByUser', queryUser.data?.id_auth], 
         queryFn: () => companyGetByUser({
-            id_user: queryUser.data?.id
+            id_auth: queryUser.data?.id_auth
         }),
-        enabled: queryUser.data?.id != null
+        enabled: queryUser.data?.id_auth != null
     })
 
     // useQuery({

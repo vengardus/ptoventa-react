@@ -36,7 +36,8 @@ body::-webkit-scrollbar {
 @layer base {
     table {
         @apply w-full text-sm text-left rtl:text-right
-           text-textTable-light dark:text-textTable-dark;
+           text-textTable-light dark:text-textTable-dark
+;
     }
     thead {
         @apply text-sm uppercase 

@@ -27,7 +27,7 @@ const Container = styled.button`
     min-height: 50px;
     min-width: 50px;
     border-radius: 50%;
-    background: linear-gradient(145deg, #f0f0f0, #cacaca);
+    background: ${(props) => props.$bgColor};
     box-shadow: 20px 20px 60px #bebebe -20px -20px 60px #ffffff;
     color: ${(props) => props.$textColor};
     display: flex;
