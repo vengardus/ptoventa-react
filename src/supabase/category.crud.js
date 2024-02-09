@@ -11,28 +11,24 @@ export class CategoryModel extends SupabaseCrud {
     }
 
     async getAll(p) {
-        const data = await this.getByField("id_company", p.id_company);
+        const data = await super.getByField("id_company", p.id_company);
         return data;
     }
 
     async insert(p, file = undefined) {
         //const { error, data } = await this.supabase.rpc("insert_category", p);
-        const data = this.insert(p);
-        if (!data) {
-            // this.error = true;
-            // this.message = this.message;
-            // Swal.fire({
-            //     icon: "error",
-            //     title: "Oops",
-            //     text: `Error al insertar categoría: ${error.message}`,
-            // });
+        console.log('insert.crud', p, file)
+        
+        const data = await super.insert(p);
+        console.log('resp-insert', data)
+        if (!data) 
             return { success: false, id: null };
-        }
 
-        const new_id = data;
-        const img = file.size;
+        const new_id = data.id;  
+        const img = file?.size;
         if (img === undefined) return { success: true, id: new_id };
 
+        console.log('procesando img....')
         const urlImage = await this.upload_image(file, new_id);
         if (!urlImage) return { success: false, id: new_id };
 
@@ -40,7 +36,7 @@ export class CategoryModel extends SupabaseCrud {
             icon: urlImage.publicUrl,
             id: new_id,
         };
-        return { success: this.update(dataUpdate), id: new_id };
+        return { success: await super.update(dataUpdate), id: new_id };
     }
 
     async upload_image(file, id_category) {
@@ -52,12 +48,16 @@ export class CategoryModel extends SupabaseCrud {
                 cacheControl: 0,
             });
 
+        console.log('storage.upload', data, error)
+
         if (data) {
             const { data: urlImage } = this.supabase.storage
-                .from("images")
+                .from(this.storageRoot)
                 .getPublicUrl(root);
+            console.log('storage.getpubllic', urlImage)
             return urlImage;
         }
+
 
         if (error) this.message = error.message;
         return null;
@@ -82,7 +82,7 @@ export class CategoryModel extends SupabaseCrud {
     }
 
     async delete(p) {
-        const success = this.delete(p);
+        const success = super.delete(p);
         if (!success || p.icon == null) return success;
 
         this.error = false

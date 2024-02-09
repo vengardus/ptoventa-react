@@ -5,7 +5,7 @@ import { useUserStore } from "../store/user.store";
 export const useUserQuery = () => {
     const userGet = useUserStore((state) => state.get)
     const query = useQuery({
-        queryKey: ["mostrar usuario"],
+        queryKey: ["get_User"],
         queryFn: () => userGet()
     })
 

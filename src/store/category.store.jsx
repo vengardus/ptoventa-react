@@ -24,14 +24,18 @@ export const useCategoryStore = create((set) => ({
         set({ itemSelect: p })
     },
 
-    insert: async (p) => {
+    insert: async (p, file) => {
         const oModel = new CategoryModel()
-        const ok = await oModel.insert(p)
-        if ( ok  )
+        const {success, id} = await oModel.insert(p, file)
+
+        console.log('resp_store', success, id, oModel.message)
+
+
+        if ( success  )
             set((state) => ({
                 data: state.getAll(state.parameters)
             }))
-        return ok
+        return success
     },
 
     delete: async (p) => {

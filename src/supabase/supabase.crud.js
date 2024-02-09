@@ -43,7 +43,8 @@ export class SupabaseCrud {
         const { data, error } = await supabase
             .from(this.TABLE_NAME)
             .insert(p)
-            .select();
+            .select()
+            .maybeSingle();
 
         this.error = error != null;
         if (this.error) {

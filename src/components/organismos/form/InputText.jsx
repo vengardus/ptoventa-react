@@ -1,9 +1,9 @@
 import styled from "styled-components";
 
-export function InputText({ children, icono }) {
+export function InputText({ children, icon }) {
   return (
     <Container>
-      <span>{icono}</span>
+      <span>{icon}</span>
 
       <div className="form__group field">{children}</div>
     </Container>

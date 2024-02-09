@@ -4,13 +4,15 @@ import { CompanyModel } from "../supabase/company.crud";
 
 export const useCompanyStore = create((set) => ({
     data: null,
+    currentCompany: null,
     countUsersCompany: 0,
 
     getByUser: async (p) => {
         const oModel = new CompanyModel()
         const data = await oModel.getByUser(p)
-        set({ data: data})
-        return data?? []
+        set({ data: data })
+        set({ currentCompany: data ? data[0] : null })
+        return data ?? []
     },
 
     getCountUsersCompany: async (p) => {
@@ -38,7 +40,7 @@ export const useCompanyStore = create((set) => ({
                 data: state.getAll(state.parameters)
             }))
 
-        return { data, errorMessage: oModel.message}
+        return { data, errorMessage: oModel.message }
     },
 
 }))
