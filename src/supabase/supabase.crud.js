@@ -3,15 +3,17 @@ import { supabase } from "./supabase.config";
 
 export class SupabaseCrud {
     constructor(table_name) {
-        this.TABLE_NAME = table_name;
-        this.message = "";
-        this.error = false;
+        this.TABLE_NAME = table_name
+        this.message = ""
+        this.error = false
+        this.status = 0
         this.supabase = supabase;
     }
 
     async getAll() {
-        const { data, error } = await supabase.from(this.TABLE_NAME).select();
+        const { data, error, status } = await supabase.from(this.TABLE_NAME).select();
         this.error = error != null;
+        this.status = status
         if (this.error) {
             this.message = error.message;
             consoleError(
@@ -22,13 +24,15 @@ export class SupabaseCrud {
         return data;
     }
 
-    async getByField(fieldName, value) {
-        const { data, error } = await supabase
+    async getByField(fieldName, value, order=true) {
+        const { data, error, status } = await supabase
             .from(this.TABLE_NAME)
             .select()
-            .eq(fieldName, value);
+            .eq(fieldName, value)
+            .order('created_at', {ascending:order});
         // .maybeSingle();
         this.error = error != null;
+        this.status = status
         if (this.error) {
             this.message = error.message;
             consoleError(
@@ -40,13 +44,14 @@ export class SupabaseCrud {
     }
 
     async insert(p) {
-        const { data, error } = await supabase
+        const { data, error, status } = await supabase
             .from(this.TABLE_NAME)
             .insert(p)
             .select()
             .maybeSingle();
 
         this.error = error != null;
+        this.status = status
         if (this.error) {
             this.message = error.message;
             consoleError(
@@ -58,12 +63,13 @@ export class SupabaseCrud {
     }
 
     async update(p) {
-        const { error } = await supabase
+        const { error, status } = await supabase
             .from(this.TABLE_NAME)
             .update(p)
             .eq("id", p.id);
 
         this.error = error != null;
+        this.status = status
         if (this.error) {
             this.message = error.message;
             consoleError(
@@ -75,14 +81,14 @@ export class SupabaseCrud {
 
     async delete(p) {
         try {
-            const { data, error } = await supabase
+            const { error, status } = await supabase
                 .from(this.TABLE_NAME)
                 .delete()
                 .eq("id", p.id)
                 .single()
-            console.log('supa error', error)
-            console.log('supa data', data)
+
             this.error = error != null;
+            this.status = status
             if (this.error) {
                 this.message = error.message;
                 consoleError(
@@ -98,12 +104,13 @@ export class SupabaseCrud {
     }
 
     async filter(fieldName, value) {
-        const { data, error } = await supabase
+        const { data, error, status } = await supabase
             .from(this.TABLE_NAME)
             .select()
             .ilike(fieldName, "%" + value + "%");
 
         this.error = error != null;
+        this.status = status
         if (this.error) {
             this.message = error.message;
             consoleError(

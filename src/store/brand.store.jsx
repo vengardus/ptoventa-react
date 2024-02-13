@@ -1,8 +1,9 @@
 import { create } from "zustand";
-import { CategoryModel } from "../supabase/category.crud";
+import { BrandModel } from "../supabase/brand.crud";
 import { APP_CONFIG } from "../utils/dataEstatica";
 
-export const useCategoryStore = create((set) => ({
+
+export const useBrandStore = create((set) => ({
     data: null,
     itemSelect: null,
     strSearch: '',
@@ -14,7 +15,7 @@ export const useCategoryStore = create((set) => ({
     },
 
     getAll: async (p) => {
-        const oModel = new CategoryModel()
+        const oModel = new BrandModel()
         const data = await oModel.getAll(p)
         set({ data: data })
         set({ itemSelect: data ? data[0] : null })
@@ -22,16 +23,16 @@ export const useCategoryStore = create((set) => ({
         return data
     },
 
-    selectCategory: (p) => {
+    selectBrand: (p) => {
         set({ itemSelect: p })
     },
 
     insert: async (p, file) => {
-        const oModel = new CategoryModel()
-        const { success } = await oModel.insert(p, file)
+        const oModel = new BrandModel()
+        const success = await oModel.insert(p, file)
 
         if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) 
-            oModel.message = 'Descripción de categoría ya existe.'
+            oModel.message = 'Descripción de marca ya existe.'
 
         if (success)
             set((state) => ({
@@ -41,7 +42,7 @@ export const useCategoryStore = create((set) => ({
     },
 
     delete: async (p) => {
-        const oModel = new CategoryModel()
+        const oModel = new BrandModel()
         const ok = await oModel.delete(p)
         if (ok)
             set((state) => ({
@@ -53,14 +54,13 @@ export const useCategoryStore = create((set) => ({
     },
 
     update: async (p, file) => {
-        const oModel = new CategoryModel()
+        const oModel = new BrandModel()
         const success = await oModel.update(p, file)
         
         if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) 
-            oModel.message = 'Descripción de categoría ya existe.'
+            oModel.message = 'Descripción de marca ya existe.'
 
         if (success) {
-            console.log('refresh')
             set((state) => ({
                 data: state.getAll(state.parameters)
             }))
@@ -70,7 +70,7 @@ export const useCategoryStore = create((set) => ({
 
     filter: async (p) => {
 
-        const oModel = new CategoryModel()
+        const oModel = new BrandModel()
         const data = await oModel.filter(p)
         set({ data: data })
         return true

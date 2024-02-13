@@ -9,7 +9,8 @@ export const useInitLoadQuery = () => {
 
     const queryUser =  useQuery({
         queryKey:['userGet'],
-        queryFn: userGet
+        queryFn: userGet,
+        refetchOnWindowFocus: false
     })
 
     useQuery({
@@ -17,7 +18,8 @@ export const useInitLoadQuery = () => {
         queryFn: () => companyGetByUser({
             id_auth: queryUser.data?.id_auth
         }),
-        enabled: queryUser.data?.id_auth != null
+        enabled: queryUser.data?.id_auth != null,
+        refetchOnWindowFocus: false
     })
 
     // useQuery({

@@ -2,24 +2,11 @@ import { useState } from "react"
 import { Header } from "../../organismos/Header"
 import { BannerCompany } from "../../organismos/BannerCompany"
 import { useCompanyStore } from "../../../store/company.store"
-import { useQuery } from "@tanstack/react-query"
-import { UserModel } from "../../../supabase/user.crud"
-
 
 export const HomeTemplate = () => {
     const [state, setState] = useState(false)
     const dataCompany = useCompanyStore((state) => state.data)
     const countUsersCompany = useCompanyStore((state) => state.countUsersCompany)
-
-    // TEST
-    const getAllCompany = useCompanyStore((state) => state.getAll)
-    const insertCompany = useCompanyStore((state) => state.insert)
-
-    useQuery({
-        queryKey: ['pv_companies.getAll'],
-        queryFn: () => getAllCompany()
-    })
-    //
 
     const test = async () => {
         // const {data, errorMessage} = await insertCompany(undefined)

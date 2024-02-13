@@ -29,6 +29,10 @@ body::-webkit-scrollbar {
           text-textTemplate-light dark:text-textTemplate-dark
           bg-bgTemplate-light dark:bg-bgTemplate-dark;
     }
+
+    .sectionTableTemplate {
+        @apply px-2 flex flex-col gap-y-3;
+    }
 }
 /***/
 
@@ -49,10 +53,10 @@ body::-webkit-scrollbar {
     }
     tbody tr {
         @apply align-baseline 
-          border-b dark:border-gray-700;
+          border-b dark:border-gray-700 ;
     }
     tbody tr th {
-        @apply px-4 py-3;
+        @apply px-4 py-2 align-middle;
     }
 }
 @layer components {

@@ -30,7 +30,9 @@ export const insertSuperAdmin = async(userMetadata, idAuthSupabase) => {
         p_email: userMetadata.email,
         p_currency_symbol: APP_CONFIG.defaultValues.currencySymbol,
         p_company_name: APP_CONFIG.defaultValues.genericDescription,
-        p_doc_type_name: APP_CONFIG.defaultValues.genericDescription
+        p_doc_type_description: APP_CONFIG.defaultValues.genericDescription,
+        p_category_description: APP_CONFIG.defaultValues.genericDescription,
+        p_category_color: APP_CONFIG.defaultValues.defaultColor
     }
 
     const {data, error} = await oUserModel.insertSuperadmin(p)

@@ -1,21 +1,21 @@
 import ConfettiExplosion from "react-confetti-explosion";
-import { useCategoryStore } from "../../../store/category.store"
-import { RegisterCategory } from "../../organismos/form/RegisterCategory"
+import { useBrandStore } from "../../../store/brand.store"
+import { RegisterBrand } from "../../organismos/form/RegisterBrand"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { useActionRegister } from "../_base/utils/useActionRegister"
 import { Search } from "./components/Search"
 import { Table } from "./components/Table"
 
-const title = "Categorías"
+const title = "Marcas"
 
-export const CategoriesTemplate = () => {
-    const categories = useCategoryStore((state) => state.data)
+export const BrandsTemplate = () => {
+    const brands = useBrandStore((state) => state.data)
     const {
         action, openRegister, dataSelect,
         actionRegister, setOpenRegister,
         isExploding, setIsExploding
-    } = useActionRegister(categories)
+    } = useActionRegister(brands)
 
 
     return (
@@ -29,17 +29,17 @@ export const CategoriesTemplate = () => {
 
             <Search />
 
-            <section id="sectionTable" className="px-2 flex flex-col gap-y-3">
+            <section id="sectionTable" className="sectionTableTemplate">
                 {isExploding && <ConfettiExplosion />}
                 <Table
-                    data={categories ?? []}
+                    data={brands ?? []}
                     actionRegister={actionRegister}
                 />
             </section>
 
             <section id="sectionRegister" className="">
                 {
-                    openRegister && <RegisterCategory
+                    openRegister && <RegisterBrand
                         dataSelect={dataSelect}
                         action={action}
                         onClose={() => setOpenRegister(!openRegister)}

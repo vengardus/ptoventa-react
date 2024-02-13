@@ -6,17 +6,19 @@ export const useActionRegister = () => {
     const [action, setAction] = useState(APP_CONFIG.actionCrud.insert);
     const [openRegister, setOpenRegister] = useState(false);
     const [movementType, setMovementType] = useState();
+    const [isExploding, setIsExploding] = useState(false);    
 
     const actionRegister = ({
         movementType = 'xxx',
         action = APP_CONFIG.actionCrud.insert,
-        data = []
+        data = [],
     }
     ) => {
         setAction(action);
         setDataSelect(data);
         setOpenRegister(!openRegister);
         setMovementType(movementType)
+        setIsExploding(false)
     };
 
     return {
@@ -24,8 +26,10 @@ export const useActionRegister = () => {
         dataSelect,
         openRegister,
         movementType,
+        isExploding,
         actionRegister,
         setOpenRegister,
-        setMovementType
+        setMovementType,
+        setIsExploding
     };
 };

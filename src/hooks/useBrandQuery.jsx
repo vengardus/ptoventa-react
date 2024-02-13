@@ -1,25 +1,26 @@
 import { useQuery } from "@tanstack/react-query"
-import { useCategoryStore } from "../store/category.store"
+import { useBrandStore } from "../store/brand.store"
 import { useCompanyStore } from "../store/company.store"
 
-export const useCategoryQuery = () => {
+
+export const useBrandQuery = () => {
     const currentCompany = useCompanyStore((state)=>state.currentCompany)
-    const getAllCategory = useCategoryStore((state) => state.getAll)
-    const filter = useCategoryStore((state) => state.filter)
-    const strSearch = useCategoryStore((state) => state.strSearch)
+    const getAllBrand = useBrandStore((state) => state.getAll)
+    const filter = useBrandStore((state) => state.filter)
+    const strSearch = useBrandStore((state) => state.strSearch)
 
     const query = useQuery({
-        queryKey:['getAll_Category', currentCompany? currentCompany.id : 0],
-        queryFn: () => getAllCategory({
+        queryKey:['getAll_Brand', currentCompany? currentCompany.id : 0],
+        queryFn: () => getAllBrand({
             id_company: currentCompany? currentCompany.id : 0
         }),
-        //enabled: currentCompany!=null,
+        enabled: currentCompany!=null,
         refetchOnWindowFocus: false,
     })
 
     // filtra por strSearch cada vez que se modifica
     useQuery({
-        queryKey: ['filter_Category', currentCompany? currentCompany.id : 0, strSearch ],
+        queryKey: ['filter_Brand', currentCompany? currentCompany.id : 0, strSearch ],
       queryFn: () =>filter({
         id_company: currentCompany? currentCompany.id : 0,
         description: strSearch

@@ -2,9 +2,9 @@ import { useEffect } from "react";
 import { useState } from "react";
 import { createContext, useContext } from "react";
 import { supabase } from "../supabase/supabase.config";
-import { APP_CONFIG } from "../utils/dataEstatica";
-import { UserModel } from "../supabase/user.crud";
-import { useUserStore } from "../store/user.store";
+// import { APP_CONFIG } from "../utils/dataEstatica";
+// import { UserModel } from "../supabase/user.crud";
+// import { useUserStore } from "../store/user.store";
 import { insertSuperAdmin } from "../supabase/auth";
 // import { UserModel } from "../supabase/user.crud";
 
@@ -22,7 +22,7 @@ export const AuthContextProvider = ({ children }) => {
                 else {
                     //console.log('session', session.user.user_metadata, session.user.id)
                     setUser(session.user)
-                    insertSuperAdmin(session.user.user_metadata, session.user.id)
+                    await insertSuperAdmin(session.user.user_metadata, session.user.id)
                 }
             }
         )

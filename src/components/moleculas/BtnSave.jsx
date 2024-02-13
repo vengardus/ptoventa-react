@@ -14,7 +14,8 @@ export const BtnSave = ({
     return (
         <Container type="submit" $bgcolor={bgcolor} $width={width} $textColor={textColor}>
             <span className="btn" onClick={func}>
-                {icon && <Icon $textColor={bgcolor}>{icon}</Icon> }
+                {icon && <Icon >{icon}</Icon> }
+                {/* {icon && <Icon $textColor={bgcolor}>{icon}</Icon> } */}
                 {title}
             </span>
         </Container>

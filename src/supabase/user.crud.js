@@ -29,6 +29,7 @@ export class UserModel extends SupabaseCrud {
             idAuthSupabase = id_auth
         }
         const data = await super.getByField("id_auth", idAuthSupabase);
+        console.log('getByIdAuth-getByField', idAuthSupabase, data)
         return data ? data[0] : null;
     }
 

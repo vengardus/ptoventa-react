@@ -14,13 +14,18 @@ export const APP_CONFIG = {
     },
 
     table: {
-        pageSize: 7,
+        pageSize: 6,
     },
 
     defaultValues: {
         currencySymbol: 'S/.',
         genericDescription: "Genérica",
-        codSuperadmin: 'S'
+        codSuperadmin: 'S',
+        defaultColor: "#F44336"
+    },
+
+    errorCodes: {
+        alreadyExist: 409
     },
 
     whatsappData: {
@@ -196,7 +201,7 @@ export const DataModulosConfiguracion = [
         title: "Marca de Productos",
         subtitle: "gestiona tus marcas",
         icono: "https://i.ibb.co/1qsbCRb/piensa-fuera-de-la-caja.png",
-        link: "/config/brand",
+        link: "/config/brands",
     },
 ];
 //tipo usuario

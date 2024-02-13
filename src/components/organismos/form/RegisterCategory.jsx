@@ -10,7 +10,10 @@ import { Icon } from "../../atomos/Icon";
 import { BtnSave } from "../../moleculas/BtnSave";
 import { InputText } from "./InputText";
 import { CirclePicker } from "react-color";
-import { Container, ContentTitle, PictureContainer } from './styles/register_category'
+import { Container, ContentTitle, PictureContainer } from './styles/registerCategory'
+import { modalAlert } from "../../../utils/modalAlert";
+
+const modelNameSingular = 'categoría'
 
 export function RegisterCategory({
     onClose,
@@ -21,7 +24,7 @@ export function RegisterCategory({
     const insertCategory = useCategoryStore((state) => state.insert)
     const updateCategory = useCategoryStore((state) => state.update)
     const currentCompany = useCompanyStore((state) => state.currentCompany)
-    const [currentColor, setColor] = useState("#F44336");
+    const [currentColor, setColor] = useState(APP_CONFIG.defaultValues.defaultColor);
     const [file, setFile] = useState([]);
     const ref = useRef(null);
     const [fileurl, setFileurl] = useState();
@@ -40,7 +43,7 @@ export function RegisterCategory({
         mutationKey: ["register_Category"],
         mutationFn: async (data) => registerCategory(data),
         onError: (err) => console.log("Ocurrió un error", err.message),
-        onSuccess: () => closeForm(),
+        //onSuccess: () => closeForm(),
     });
 
     // const handleSub = (data) => {
@@ -50,7 +53,7 @@ export function RegisterCategory({
 
     const closeForm = () => {
         onClose();
-        //setIsExploding(true);
+        setIsExploding(true);
     };
 
     async function registerCategory(data) {
@@ -59,9 +62,14 @@ export function RegisterCategory({
                 description: convertirCapitalize(data.description),
                 id_company: currentCompany.id,
                 color: currentColor,
+                icon: dataSelect.icon,
                 id: dataSelect.id,
             };
-            await updateCategory(p, dataSelect.icon, file);
+            const resp = await updateCategory(p, file);
+            if ( resp.success )
+                closeForm()
+            else 
+                modalAlert({ type: 'warning', text: `Error al actualizar ${modelNameSingular}: ${resp.message}` })
         } else {
             const p = {
                 description: convertirCapitalize(data.description),
@@ -69,8 +77,12 @@ export function RegisterCategory({
                 //_icon: "-",
                 id_company: currentCompany.id,
             };
-            console.log('inseert', p, file)
-            await insertCategory(p, file);
+            console.log('insert', p, file)
+            const resp = await insertCategory(p, file)
+            if ( resp.success )
+                closeForm()
+            else 
+                modalAlert({ type: 'warning', text: `Error al agregar ${modelNameSingular}: ${resp.message}` })
         }
     }
     function openImages() {
@@ -112,8 +124,8 @@ export function RegisterCategory({
                         <section>
                             <h1>
                                 {action == APP_CONFIG.actionCrud.update
-                                    ? "Editar categoría"
-                                    : "Registrar nueva categoría"}
+                                    ? `Editar ${modelNameSingular}`
+                                    : `Registrar nueva ${modelNameSingular}`}
                             </h1>
                         </section>
 
@@ -157,7 +169,7 @@ export function RegisterCategory({
                                             required: true,
                                         })}
                                     />
-                                    <label className="form__label">categoria</label>
+                                    <label className="form__label">{modelNameSingular}</label>
                                     {errors.description?.type === "required" && (
                                         <p>Campo requerido</p>
                                     )}
