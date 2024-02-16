@@ -20,7 +20,7 @@ import {
 } from "@tanstack/react-table"
 import { ContentActionsTable } from "./ContentActionsTable"
 import { modalAlert } from "../../../utils/modalAlert"
-import { useProductStore } from "../../../store/ProductStore"
+import { useProductStore } from "../../../stores/ProductStore"
 import { APP_CONFIG } from "../../../utils/dataEstatica"
 import { FaArrowsAltV } from "react-icons/fa"
 import { Pagination } from "./Pagination"

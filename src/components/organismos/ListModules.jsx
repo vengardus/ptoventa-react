@@ -1,8 +1,8 @@
 import styled from "styled-components";
 import { useEffect, useState } from "react";
-import { useModuleStore } from "../../store/ModuleStore";
+import { useModuleStore } from "../../stores/ModuleStore";
 import { APP_CONFIG } from "../../utils/dataEstatica";
-import { useUserStore } from "../../store/user.store";
+import { useUserStore } from "../../stores/user.store";
 
 
 export function ListModules({

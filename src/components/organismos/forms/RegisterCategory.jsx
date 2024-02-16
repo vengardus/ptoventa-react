@@ -1,17 +1,17 @@
 import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
 import { useMutation } from "@tanstack/react-query";
-import { useCategoryStore } from "../../../store/category.store";
-import { useCompanyStore } from "../../../store/company.store";
+import { useCategoryStore } from "../../../stores/category.store";
+import { useCompanyStore } from "../../../stores/company.store";
 import { convertirCapitalize } from "../../../utils/conversiones";
 import { APP_CONFIG } from "../../../utils/dataEstatica";
 import { v } from "../../../styles/variables";
 import { Icon } from "../../atomos/Icon";
 import { BtnSave } from "../../moleculas/BtnSave";
-import { InputText } from "./InputText";
 import { CirclePicker } from "react-color";
 import { Container, ContentTitle, PictureContainer } from './styles/registerCategory'
 import { modalAlert } from "../../../utils/modalAlert";
+import { InputText } from "./ui/InputText";
 
 const modelNameSingular = 'categoría'
 

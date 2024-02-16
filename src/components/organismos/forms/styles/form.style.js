@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { Device } from "../../../styles/breakpoints";
+import { Device } from "../../../../styles/breakpoints";
 
 export const FormContainer = styled.div`
   transition: 0.5s;

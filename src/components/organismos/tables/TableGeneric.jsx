@@ -52,7 +52,7 @@ export const TableGeneric = ({
 					<thead>
 						{
 							table.getHeaderGroups().map(headerGroup => (
-								<tr key={headerGroup.id}>
+								<tr key={headerGroup.id} className="flex">
 									{
 										headerGroup.headers.map((header, index) => (
 											<th key={header.id} className={`${customColumns[index].responsive}`}>
@@ -83,7 +83,7 @@ export const TableGeneric = ({
 					<tbody>
 						{
 							table.getRowModel().rows.map(item => (
-								<tr key={item.id} className={`${(isStriped) ? 'tableStriped' : ''}`} >
+								<tr key={item.id} className={`${(isStriped) ? 'tableStriped' : ''} flex`} >
 									{
 										item.getVisibleCells().map((cell, index) => (
 											<th key={cell.id} scope='row' className={`${customColumns[index].responsive}`}>

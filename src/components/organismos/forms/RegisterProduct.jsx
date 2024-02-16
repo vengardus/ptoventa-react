@@ -1,8 +1,8 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
 import styled from "styled-components";
-import { useProductStore } from "../../../store/ProductStore";
-import { useCompanyStore } from "../../../store/company.store";
+import { useProductStore } from "../../../stores/ProductStore";
+import { useCompanyStore } from "../../../stores/company.store";
 import { APP_CONFIG } from "../../../utils/dataEstatica";
 import { InputText } from "./InputText";
 import { BtnSave } from "../../moleculas/BtnSave";
@@ -11,12 +11,12 @@ import { convertirCapitalize } from "../../../utils/conversiones";
 import { modalAlert } from "../../../utils/modalAlert";
 import { ContentSelector } from "../../atomos/ContentSelector";
 import { Selector } from "../Selector";
-import { useBrandStore } from "../../../store/BrandStore";
+import { useBrandStore } from "../../../stores/BrandStore";
 import { useState } from "react";
 import { BtnFilter } from "../../moleculas/BtnFilter";
 import { RegisterBrand } from "./RegisterBrand";
 import { ListGeneric } from "../ListGeneric";
-import { useCategoryStore } from "../../../store/CategoryStore";
+import { useCategoryStore } from "../../../stores/CategoryStore";
 import { RegisterCategory } from "./RegisterCategory";
 import { Device } from "../../../styles/breakpoints";
 

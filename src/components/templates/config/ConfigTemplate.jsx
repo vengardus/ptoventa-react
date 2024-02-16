@@ -1,7 +1,7 @@
 import { Link } from "react-router-dom";
 import { useEffect } from "react";
 import { Container } from "./style";
-import { useModuleStore } from "../../../store/module.store";
+import { useModuleStore } from "../../../stores/module.store";
 
 
 export function ConfigTemplate() {

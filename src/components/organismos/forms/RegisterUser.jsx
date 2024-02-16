@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm } from "react-hook-form";
-import { useUserStore } from "../../../store/user.store";
-import { useCompanyStore } from "../../../store/company.store";
+import { useUserStore } from "../../../stores/user.store";
+import { useCompanyStore } from "../../../stores/company.store";
 import { APP_CONFIG, TypeDocumentData, TypeUserData } from "../../../utils/dataEstatica";
 import { InputText } from "./InputText";
 import { BtnSave } from "../../moleculas/BtnSave";

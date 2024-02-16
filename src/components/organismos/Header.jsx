@@ -1,5 +1,5 @@
 import styled from "styled-components";
-import { useAuthWithEmailStore } from "../../store/AuthWithEmailStore";
+import { useAuthWithEmailStore } from "../../stores/AuthWithEmailStore";
 import { UserAuth } from "../../context/AuthContext";
 import { BtnCircular } from "../moleculas/BtnCircular";
 import { v } from "../../styles/variables";

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useBrandStore } from "../store/brand.store"
-import { useCompanyStore } from "../store/company.store"
+import { useBrandStore } from "../stores/brand.store"
+import { useCompanyStore } from "../stores/company.store"
 
 
 export const useBrandQuery = () => {

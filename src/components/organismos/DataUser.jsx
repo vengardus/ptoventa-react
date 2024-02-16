@@ -5,7 +5,7 @@ import { BtnCircular } from "../moleculas/BtnCircular";
 import { v } from "../../styles/variables"
 import { ListMenuDesplegable } from "../moleculas/ListMenuDesplegable";
 import { DesplegableUser } from "../../utils/dataEstatica";
-import { useAuthWithEmailStore } from "../../store/AuthWithEmailStore";
+import { useAuthWithEmailStore } from "../../stores/AuthWithEmailStore";
 
 export const DataUser = ({ stateConfig }) => {
     const { user } = UserAuth();

@@ -1,13 +1,13 @@
 import { useState } from "react"
-import { RegisterUser } from "../../organismos/form/RegisterUser"
-import { useUserStore } from "../../../store/user.store"
+import { RegisterUser } from "../../organismos/forms/RegisterUser"
+import { useUserStore } from "../../../stores/user.store"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { APP_CONFIG } from "../../../utils/dataEstatica"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { TemplateBaseSectionSearch } from "../_base/TemplateBaseSectionSearch"
-import { ContentActionsTable } from "../../organismos/table/ContentActionsTable"
+import { ContentActionsTable } from "../../organismos/tables/ContentActionsTable"
 import { modalAlert } from "../../../utils/modalAlert"
-import { TableGeneric } from "../../organismos/table/TableGeneric"
+import { TableGeneric } from "../../organismos/tables/TableGeneric"
 
 const title = 'Personal'
 

@@ -1,4 +1,4 @@
-import { useCategoryStore } from "../../../../store/category.store"
+import { useCategoryStore } from "../../../../stores/category.store"
 import { TemplateBaseSectionSearch } from "../../_base/TemplateBaseSectionSearch"
 
 export const Search = () => {

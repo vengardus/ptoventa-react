@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query";
-import { useUserStore } from "../store/user.store";
+import { useUserStore } from "../stores/user.store";
 
 
 export const useUserQuery = () => {

@@ -1,3 +1,20 @@
+export const deviceTypes = {
+    xmobile: 'extraMobile',
+    mobile : 'mobile',
+    tablet: 'tablet',
+    laptop: 'laptop',
+    desktop: 'desktop',
+    tv: 'tv'
+}
+
+export const deviceSizes = {
+    mobile:     640,    //576     small mobile (menos de 640son son los extra small, default)
+    tablet:     768,   
+    laptop:     1024, //992
+    desktop:    1280, //1200
+    tv:         1536     
+};
+
 const sizes = {
     mobile:     "640px",    //576px     small mobile (menos de 640son son los extra small, default)
     tablet:     "768px",   

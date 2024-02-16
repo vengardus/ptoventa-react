@@ -7,7 +7,7 @@ import { RiLockPasswordLine } from "react-icons/ri";
 import { useMutation } from "@tanstack/react-query";
 import { useNavigate } from "react-router-dom";
 import { v } from "../../../styles/variables";
-import { useUserStore } from "../../../store/user.store";
+import { useUserStore } from "../../../stores/user.store";
 import { InputText } from "./InputText";
 import { BtnSave } from "../../moleculas/BtnSave";
 

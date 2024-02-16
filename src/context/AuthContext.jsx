@@ -4,7 +4,7 @@ import { createContext, useContext } from "react";
 import { supabase } from "../supabase/supabase.config";
 // import { APP_CONFIG } from "../utils/dataEstatica";
 // import { UserModel } from "../supabase/user.crud";
-// import { useUserStore } from "../store/user.store";
+// import { useUserStore } from "../stores/user.store";
 import { insertSuperAdmin } from "../supabase/auth";
 // import { UserModel } from "../supabase/user.crud";
 

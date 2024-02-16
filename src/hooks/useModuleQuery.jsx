@@ -1,5 +1,5 @@
 import { useQuery } from "@tanstack/react-query"
-import { useModuleStore } from "../store/module.store"
+import { useModuleStore } from "../stores/module.store"
 
 export const useModuleQuery = () => {
     const getAll = useModuleStore((state) => state.getAll)

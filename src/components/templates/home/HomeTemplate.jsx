@@ -1,7 +1,7 @@
 import { useState } from "react"
 import { Header } from "../../organismos/Header"
 import { BannerCompany } from "../../organismos/BannerCompany"
-import { useCompanyStore } from "../../../store/company.store"
+import { useCompanyStore } from "../../../stores/company.store"
 
 export const HomeTemplate = () => {
     const [state, setState] = useState(false)

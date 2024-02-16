@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { HomeTemplate } from "../../components/templates/home/HomeTemplate"
-import { useCompanyStore } from "../../store/company.store"
+import { useCompanyStore } from "../../stores/company.store"
 
 export const HomePage = () => {
   // const dataCompany = useCompanyStore((state) => state.data)

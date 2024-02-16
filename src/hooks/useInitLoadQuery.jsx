@@ -1,5 +1,5 @@
-import { useUserStore } from '../store/user.store'
-import { useCompanyStore } from '../store/company.store'
+import { useUserStore } from '../stores/user.store'
+import { useCompanyStore } from '../stores/company.store'
 import { useQuery } from '@tanstack/react-query'
 
 export const useInitLoadQuery = () => {
@@ -14,9 +14,9 @@ export const useInitLoadQuery = () => {
     })
 
     useQuery({
-        queryKey: ['getCompanyByUser', queryUser.data?.id_auth], 
+        queryKey: ['getCompanyByUser', queryUser.data?.id_auth?? ''], 
         queryFn: () => companyGetByUser({
-            id_auth: queryUser.data?.id_auth
+            id_auth: queryUser.data?.id_auth?? ''
         }),
         enabled: queryUser.data?.id_auth != null,
         refetchOnWindowFocus: false
@@ -29,6 +29,9 @@ export const useInitLoadQuery = () => {
     //     }),
     //     enabled: queryUser.data?.id != null
     // })
+
+    if ( ! queryUser.data?.id_auth )
+        return <div className='text-black bg-white'>...recuperando usuario</div>
 
 
     return {isLoading:queryUser.isLoading, isError:queryUser.isError }

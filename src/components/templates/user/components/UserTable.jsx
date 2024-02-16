@@ -1,8 +1,8 @@
-import { useUserStore } from "../../../../store/user.store"
+import { useUserStore } from "../../../../stores/user.store"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
 import { modalAlert } from "../../../../utils/modalAlert"
-import { ContentActionsTable } from "../../../organismos/table/ContentActionsTable"
-import { TableGeneric } from "../../../organismos/table/TableGeneric"
+import { ContentActionsTable } from "../../../organismos/tables/ContentActionsTable"
+import { TableGeneric } from "../../../organismos/tables/TableGeneric"
 
 
 export const UserTable = ({

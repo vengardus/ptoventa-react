@@ -1,6 +1,6 @@
 import ConfettiExplosion from "react-confetti-explosion";
-import { useCategoryStore } from "../../../store/category.store"
-import { RegisterCategory } from "../../organismos/form/RegisterCategory"
+import { useCategoryStore } from "../../../stores/category.store"
+import { RegisterCategory } from "../../organismos/forms/RegisterCategory"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { useActionRegister } from "../_base/utils/useActionRegister"
@@ -29,7 +29,7 @@ export const CategoriesTemplate = () => {
 
             <Search />
 
-            <section id="sectionTable" className="px-2 flex flex-col gap-y-3">
+            <section id="sectionTable" className="sectionTableTemplate">
                 {isExploding && <ConfettiExplosion />}
                 <Table
                     data={categories ?? []}

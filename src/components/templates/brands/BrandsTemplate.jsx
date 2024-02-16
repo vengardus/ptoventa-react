@@ -1,11 +1,12 @@
 import ConfettiExplosion from "react-confetti-explosion";
-import { useBrandStore } from "../../../store/brand.store"
-import { RegisterBrand } from "../../organismos/form/RegisterBrand"
+import { useBrandStore } from "../../../stores/brand.store"
+import { RegisterBrand } from "../../organismos/forms/RegisterBrand"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { useActionRegister } from "../_base/utils/useActionRegister"
 import { Search } from "./components/Search"
 import { Table } from "./components/Table"
+import { BrandForm } from "../../organismos/forms/BrandForm";
 
 const title = "Marcas"
 
@@ -39,11 +40,15 @@ export const BrandsTemplate = () => {
 
             <section id="sectionRegister" className="">
                 {
-                    openRegister && <RegisterBrand
-                        dataSelect={dataSelect}
+                    // openRegister && <RegisterBrand
+                    //     dataSelect={dataSelect}
+                    //     action={action}
+                    //     onClose={() => setOpenRegister(!openRegister)}
+                    //     setIsExploding={setIsExploding} 
+                    // />
+                    openRegister && <BrandForm
                         action={action}
                         onClose={() => setOpenRegister(!openRegister)}
-                        setIsExploding={setIsExploding} 
                     />
                 }
             </section>

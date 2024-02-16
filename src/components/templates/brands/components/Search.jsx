@@ -1,4 +1,4 @@
-import { useBrandStore } from "../../../../store/brand.store"
+import { useBrandStore } from "../../../../stores/brand.store"
 import { TemplateBaseSectionSearch } from "../../_base/TemplateBaseSectionSearch"
 
 export const Search = () => {

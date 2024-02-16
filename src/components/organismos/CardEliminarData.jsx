@@ -3,7 +3,7 @@ import Swal from "sweetalert2"
 
 import { v } from "../../styles/variables"
 import { BtnSave } from "../moleculas/BtnSave"
-import { useUserStore } from "../../store/user.store"
+import { useUserStore } from "../../stores/user.store"
 
 
 export const CardEliminarData = () => {

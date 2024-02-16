@@ -1,8 +1,8 @@
-import { useBrandStore } from "../../../../store/brand.store"
+import { useBrandStore } from "../../../../stores/brand.store"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
 import { modalAlert } from "../../../../utils/modalAlert"
-import { ContentActionsTable } from "../../../organismos/table/ContentActionsTable"
-import { TableGeneric } from "../../../organismos/table/TableGeneric"
+import { ContentActionsTable } from "../../../organismos/tables/ContentActionsTable"
+import { TableGeneric } from "../../../organismos/tables/TableGeneric"
 
 
 export const Table = ({
@@ -52,7 +52,7 @@ export const Table = ({
 
     /* custom columns */
     const customColumns = tableColumns.map(item => ({ accessorKey: item.accessorKey, responsive: '' }))
-    //customColumns[2].responsive = 'hidden sm:block'
+    customColumns[0].responsive = 'w-10/12'
 
     return (
         <TableGeneric

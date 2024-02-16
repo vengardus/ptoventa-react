@@ -23,8 +23,12 @@ export class UserModel extends SupabaseCrud {
     async getByIdAuth(id_auth=undefined) {
         console.log('getByIdAuth', id_auth)
         let idAuthSupabase 
-        if ( id_auth === undefined)
+        if ( id_auth === undefined) {
             idAuthSupabase = await getIdAuthSupabase();
+            console.log('undefined=>', idAuthSupabase)
+            if ( idAuthSupabase == undefined )
+                idAuthSupabase = ''
+        }
         else {
             idAuthSupabase = id_auth
         }

@@ -1,6 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
-import { useCategoryStore } from "../store/category.store"
-import { useCompanyStore } from "../store/company.store"
+import { useCategoryStore } from "../stores/category.store"
+import { useCompanyStore } from "../stores/company.store"
 
 export const useCategoryQuery = () => {
     const currentCompany = useCompanyStore((state)=>state.currentCompany)

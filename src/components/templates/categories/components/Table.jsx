@@ -1,12 +1,12 @@
-import { useCategoryStore } from "../../../../store/category.store"
+import { useCategoryStore } from "../../../../stores/category.store"
 import { v } from "../../../../styles/variables"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
 import { modalAlert } from "../../../../utils/modalAlert"
 import { ContentColor } from "../../../atomos/ContentColor"
 import { Icon } from "../../../atomos/Icon"
 import { ImageContent } from "../../../moleculas/ImageContent"
-import { ContentActionsTable } from "../../../organismos/table/ContentActionsTable"
-import { TableGeneric } from "../../../organismos/table/TableGeneric"
+import { ContentActionsTable } from "../../../organismos/tables/ContentActionsTable"
+import { TableGeneric } from "../../../organismos/tables/TableGeneric"
 
 
 export const Table = ({
@@ -102,7 +102,10 @@ export const Table = ({
 
     /* custom columns */
     const customColumns = tableColumns.map(item => ({ accessorKey: item.accessorKey, responsive: '' }))
-    customColumns[2].responsive = 'hidden sm:block'
+    customColumns[0].responsive = 'w-2/12 sm:block'
+    customColumns[1].responsive = 'w-5/12 sm:block sm:w-6/12'
+    customColumns[2].responsive = 'w-2/12 sm:block'
+    customColumns[3].responsive = 'w-2/12 sm:block'
 
     return (
         <TableGeneric

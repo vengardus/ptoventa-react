@@ -2,7 +2,7 @@ import styled from "styled-components";
 //import { HashLoader } from "react-spinners";
 import { PacmanLoader } from "react-spinners";
 
-//import { useOperations } from "../../store/OperationsStore";
+//import { useOperations } from "../../stores/OperationsStore";
 
 
 export function SpinnerLoader() {

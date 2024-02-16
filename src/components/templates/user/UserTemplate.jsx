@@ -1,4 +1,4 @@
-import { RegisterUser } from "../../organismos/form/RegisterUser"
+import { RegisterUser } from "../../organismos/forms/RegisterUser"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { useActionRegister } from "../_base/utils/useActionRegister"
