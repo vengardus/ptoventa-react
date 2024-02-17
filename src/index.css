@@ -6,7 +6,7 @@
 * {
     margin: 0;
     padding: 0;
-    font-size:16px;
+    font-size: 16px;
     font-family: "Poppins", sans-serif;
     box-sizing: border-box;
 }
@@ -14,14 +14,11 @@ body::-webkit-scrollbar {
     width: 12px;
     background: rgba(55, 55, 55, 0.2);
     filter: blur(10px);
-  }
-  body::-webkit-scrollbar-thumb {
+}
+body::-webkit-scrollbar-thumb {
     background: rgba(84, 84, 84, 0.5);
     border-radius: 10px;
-    
-  }
-
-  
+}
 
 /*** CONTAINER TEMPLATE **/
 @layer components {
@@ -48,8 +45,7 @@ body::-webkit-scrollbar {
 @layer base {
     table {
         @apply w-full text-sm text-left rtl:text-right
-           text-textTable-light dark:text-textTable-dark
-;
+           text-textTable-light dark:text-textTable-dark;
     }
     thead {
         @apply text-sm uppercase 
@@ -61,7 +57,7 @@ body::-webkit-scrollbar {
     }
     tbody tr {
         @apply align-baseline 
-          border-b dark:border-gray-700 ;
+          border-b dark:border-gray-700;
     }
     tbody tr th {
         @apply px-4 py-2 align-middle;
@@ -83,6 +79,29 @@ body::-webkit-scrollbar {
     }
 }
 /***/
+
+/* Form */
+@layer components {
+    .containerRegisterForm {
+        @apply top-0 left-0 fixed flex w-[100%] min-h-screen
+                items-center justify-center 
+                bg-[#0a090980] z-20 transition delay-500;
+    }
+    .subContainerRegisterForm {
+        @apply  relative w-[50rem] max-w-[85%] 
+                border rounded-lg shadow-md shadow-[#0a090966]
+                text-textTemplate-light dark:text-textTemplate-dark
+                bg-bgTemplate-light dark:bg-bgTemplate-dark
+                py-[1.3rem] px-[2rem] z-10;
+    }
+    .form {
+        @apply pt-5
+    }
+    .formSection {
+        @apply relative z-0 w-full mb-5 flex flex-col gap-y-0;
+    }
+
+}
 
 /* Various components */
 @layer components {
