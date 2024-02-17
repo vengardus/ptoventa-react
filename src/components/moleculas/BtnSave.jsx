@@ -33,7 +33,8 @@ const Container = styled.button`
     background-color:initial;
     cursor: pointer;
     z-index: 2;
-    width: auto;
+    /* width: auto; */
+    width: ${(props) => props.$width};
     .btn {
         width: ${(props) => props.$width};
         background: ${(props) => props.$bgcolor};

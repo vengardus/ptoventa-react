@@ -84,6 +84,8 @@ export const PictureContainer = styled.div`
   position: relative;
   gap: 3px;
   margin-bottom: 8px;
+  max-width: 400px;
+  max-height: 400px;
 
   .ContentImage {
     overflow: hidden;

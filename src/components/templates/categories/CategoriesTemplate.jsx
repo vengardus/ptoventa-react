@@ -1,11 +1,11 @@
 import ConfettiExplosion from "react-confetti-explosion";
 import { useCategoryStore } from "../../../stores/category.store"
-import { RegisterCategory } from "../../organismos/forms/RegisterCategory"
 import { TemplateBaseHeader } from "../_base/TemplateBaseHeader"
 import { TemplateBaseSectionTitle } from "../_base/TemplateBaseSectionTitle"
 import { useActionRegister } from "../_base/utils/useActionRegister"
 import { Search } from "./components/Search"
 import { Table } from "./components/Table"
+import { RegisterCategory } from "../../organismos/forms/category/RegisterCategory";
 
 const title = "Categorías"
 

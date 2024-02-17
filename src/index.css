@@ -53,14 +53,14 @@ body::-webkit-scrollbar-thumb {
           bg-bgTableHead-light dark:bg-bgTableHead-dark;
     }
     thead tr th {
-        @apply px-4 py-3;
+        @apply px-1 sm:px-3 py-3 flex justify-start;
     }
     tbody tr {
-        @apply align-baseline 
-          border-b dark:border-gray-700;
+        @apply align-baseline flex items-center 
+          border-b dark:border-gray-700 ;
     }
     tbody tr th {
-        @apply px-4 py-2 align-middle;
+        @apply px-1 sm:px-3 py-2 flex justify-start ;
     }
 }
 @layer components {

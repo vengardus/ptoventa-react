@@ -1,173 +1,201 @@
-import { useEffect } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useForm } from "react-hook-form";
-import styled from "styled-components";
+import { useMutation } from "@tanstack/react-query";
 import { useCategoryStore } from "../../../stores/category.store";
 import { useCompanyStore } from "../../../stores/company.store";
-import { APP_CONFIG } from "../../../utils/dataEstatica";
-import { InputText } from "./InputText";
-import { BtnSave } from "../../moleculas/BtnSave";
-import { v } from "../../../styles/variables";
 import { convertirCapitalize } from "../../../utils/conversiones";
+import { APP_CONFIG } from "../../../utils/dataEstatica";
+import { v } from "../../../styles/variables";
+import { Icon } from "../../atomos/Icon";
+import { BtnSave } from "../../moleculas/BtnSave";
+import { CirclePicker } from "react-color";
+import { Container, ContentTitle, PictureContainer } from './styles/registerCategory'
 import { modalAlert } from "../../../utils/modalAlert";
-import { CirclePicker} from "react-color"
-import { useState } from "react";
+import { InputText } from "./ui/InputText";
+
+const modelNameSingular = 'categoría'
 
 export function RegisterCategory({
     onClose,
     dataSelect,
-    action
+    action,
+    setIsExploding,
 }) {
-    const [color, setColor] = useState('#F44336')
     const insertCategory = useCategoryStore((state) => state.insert)
     const updateCategory = useCategoryStore((state) => state.update)
-    const dataCompany = useCompanyStore((state) => state.data)
-    const {
-        register,
-        formState: { errors },
-        handleSubmit,
-        setFocus
-    } = useForm();
+    const currentCompany = useCompanyStore((state) => state.currentCompany)
+    const [currentColor, setColor] = useState(APP_CONFIG.defaultValues.defaultColor);
+    const [file, setFile] = useState([]);
+    const ref = useRef(null);
+    const [fileurl, setFileurl] = useState();
 
     const handleOnChangeColor = (color) => {
         setColor(color.hex)
     }
 
-    const registerCategory = async(data) => {
+    const {
+        register,
+        formState: { errors },
+        handleSubmit,
+    } = useForm();
+
+    const mutationRegisterCategory = useMutation({
+        mutationKey: ["register_Category"],
+        mutationFn: async (data) => registerCategory(data),
+        onError: (err) => console.log("Ocurrió un error", err.message),
+        //onSuccess: () => closeForm(),
+    });
+
+    // const handleSub = (data) => {
+    //     console.log('handle', data)
+    //     mutate(data);
+    // };
+
+    const closeForm = () => {
+        onClose();
+        setIsExploding(true);
+    };
+
+    async function registerCategory(data) {
         if (action === APP_CONFIG.actionCrud.update) {
             const p = {
-                id: dataSelect.id,
                 description: convertirCapitalize(data.description),
-                color: color
+                id_company: currentCompany.id,
+                color: currentColor,
+                icon: dataSelect.icon,
+                id: dataSelect.id,
             };
-            const error = await updateCategory(p)
-            if (error)
-                modalAlert({
-                    type: 'warning',
-                    text: `No se actualizó la categoría (${error})`
-                })
-            onClose();
+            const resp = await updateCategory(p, file);
+            if ( resp.success )
+                closeForm()
+            else 
+                modalAlert({ type: 'warning', text: `Error al actualizar ${modelNameSingular}: ${resp.message}` })
         } else {
             const p = {
-                p_description: convertirCapitalize(data.description),
-                p_id_company: dataCompany.id,
-                p_color: color
+                description: convertirCapitalize(data.description),
+                color: currentColor,
+                //_icon: "-",
+                id_company: currentCompany.id,
             };
-            await insertCategory(p)
-            onClose();
+            console.log('insert', p, file)
+            const resp = await insertCategory(p, file)
+            if ( resp.success )
+                closeForm()
+            else 
+                modalAlert({ type: 'warning', text: `Error al agregar ${modelNameSingular}: ${resp.message}` })
+        }
+    }
+    function openImages() {
+        console.log('openImages')
+        ref.current.click();
+    }
+
+    function prepareImage(e) {
+        console.log('preparIemage', e)
+        let filelocal = e.target.files;
+        let fileReaderlocal = new FileReader();
+        fileReaderlocal.readAsDataURL(filelocal[0]);
+        const tipoimg = e.target.files[0];
+
+        console.log('typeImg', tipoimg)
+
+        setFile(tipoimg);
+        if (fileReaderlocal && filelocal && filelocal.length) {
+            fileReaderlocal.onload = function load() {
+                setFileurl(fileReaderlocal.result);
+            };
         }
     }
 
     useEffect(() => {
         if (action === APP_CONFIG.actionCrud.update) {
-            console.log(dataSelect)
-            setColor(dataSelect.color)
+            setColor(dataSelect.color);
+            setFileurl(dataSelect.icon);
         }
-        setFocus('description')
-    }, [setFocus, action, dataSelect]);
+    }, [action, dataSelect.color, dataSelect.icon]);
 
     return (
         <Container>
-            <div className="sub-contenedor">
-                <div className="headers">
-                    <section>
-                        <h1>
-                            {action == APP_CONFIG.actionCrud.update ? "Editar categoría" : "Registrar nueva categoría"}
-                        </h1>
-                    </section>
+            {mutationRegisterCategory.isPending? (
+                <span>...🔼</span>
+            ) : (
+                <div className="sub-contenedor">
+                    <div className="headers">
+                        <section>
+                            <h1>
+                                {action == APP_CONFIG.actionCrud.update
+                                    ? `Editar ${modelNameSingular}`
+                                    : `Registrar nueva ${modelNameSingular}`}
+                            </h1>
+                        </section>
 
-                    <section>
-                        <span onClick={onClose}>x</span>
-                    </section>
-                </div>
+                        <section>
+                            <span onClick={onClose}>x</span>
+                        </section>
+                    </div>
+                    <PictureContainer>
+                        {fileurl != "-" ? (
+                            <div className="ContentImage">
+                                <img src={fileurl}></img>
+                            </div>
+                        ) : (
+                            <Icon>{<v.iconoimagenvacia />}</Icon>
+                        )}
 
-                <form className="formulario" onSubmit={handleSubmit(registerCategory)}>
-                    <section>
-                        <article>
-                            <InputText icono={<v.iconocategorias />}>
-                                <input
-                                    className="form__field"
-                                    defaultValue={dataSelect.description}
-                                    type="text"
-                                    placeholder=""
-                                    {...register("description", {
-                                        required: true,
-                                    })}
-                                />
-                                <label className="form__label">categoría</label>
-                                {errors.description?.type === "required" && <p>Campo requerido</p>}
-                            </InputText>
-                        </article>
+                        <BtnSave
+                            func={openImages}
+                            title="+imagen(opcional)"
+                            textColor="#5f5f5f"
+                            bgcolor="rgb(183, 183, 182)"
+                            icon={<v.iconosupabase />}
+                        />
+                        <input
+                            type="file"
+                            ref={ref}
+                            onChange={(e) => prepareImage(e)}
+                        ></input>
+                    </PictureContainer>
 
-                        <article>
-                          <CirclePicker 
-                            onChange={handleOnChangeColor}
-                            color={color}
-                          />
-                        </article>
+                    <form className="formulario" onSubmit={handleSubmit(mutationRegisterCategory.mutate)}>
+                        <section className="form-subcontainer">
+                            <article>
+                                <InputText icon={<v.iconoflechaderecha />}>
+                                    <input
+                                        className="form__field"
+                                        defaultValue={dataSelect.description}
+                                        type="text"
+                                        placeholder="categoria"
+                                        {...register("description", {
+                                            required: true,
+                                        })}
+                                    />
+                                    <label className="form__label">{modelNameSingular}</label>
+                                    {errors.description?.type === "required" && (
+                                        <p>Campo requerido</p>
+                                    )}
+                                </InputText>
+                            </article>
 
-                        <div className="btnguardarContent">
+                            <article className="colorContainer">
+                                <ContentTitle>
+                                    {<v.paletacolores />}
+                                    <span>Color</span>
+                                </ContentTitle>
+                                <div className="colorPickerContent">
+                                    <CirclePicker onChange={handleOnChangeColor} color={currentColor} />
+                                </div>
+                            </article>
+
                             <BtnSave
                                 icon={<v.iconoguardar />}
                                 title="Guardar"
-                                bgcolor="#ef552b"
+                                bgcolor="#F9D70B"
                             />
-                        </div>
-                    </section>
-                </form>
-            </div>
+                        </section>
+                    </form>
+                </div>
+            )}
         </Container>
     );
 }
-const Container = styled.div`
-  /* transition: 0.5s; */
-  top: 0;
-  left: 0;
-  position: fixed;
-  background-color: rgba(10, 9, 9, 0.5);
-  display: flex;
-  width: 100%;
-  min-height: 100vh;
-  align-items: center;
-  justify-content: center;
-  z-index: 1000;
-
-  .sub-contenedor {
-    width: 500px;
-    max-width: 85%;
-    border-radius: 20px;
-    background: ${({ theme }) => theme.bgtotal};
-    box-shadow: -10px 15px 30px rgba(10, 9, 9, 0.4);
-    padding: 13px 36px 20px 36px;
-    z-index: 100;
-
-    .headers {
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      margin-bottom: 20px;
-
-      h1 {
-        font-size: 20px;
-        font-weight: 500;
-      }
-      span {
-        font-size: 20px;
-        cursor: pointer;
-      }
-    }
-    .formulario {
-      section {
-        gap: 20px;
-        display: flex;
-        flex-direction: column;
-        .colorContainer {
-          .colorPickerContent {
-            padding-top: 15px;
-            min-height: 50px;
-          }
-        }
-      }
-    }
-  }
-`;
 

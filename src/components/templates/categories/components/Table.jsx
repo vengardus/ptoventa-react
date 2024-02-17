@@ -1,6 +1,8 @@
 import { useCategoryStore } from "../../../../stores/category.store"
+import { deviceTypes } from "../../../../styles/breakpoints"
 import { v } from "../../../../styles/variables"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
+import { getDeviceType } from "../../../../utils/deviceType"
 import { modalAlert } from "../../../../utils/modalAlert"
 import { ContentColor } from "../../../atomos/ContentColor"
 import { Icon } from "../../../atomos/Icon"
@@ -13,8 +15,8 @@ export const Table = ({
     data,
     actionRegister,
 }) => {
+    
     const deleteRegister = useCategoryStore((state) => state.delete)
-
     const editItem = (item) => {
         // if (item.type_user.trim() == APP_CONFIG.type_user.admin) {
         //     modalAlert({ type: 'warning', text: 'No se puede modificar usuario superadmin.' })
@@ -75,7 +77,7 @@ export const Table = ({
             header: "Color",
             enableSorting: false,
             cell: (info) => (
-                <span className="flex py-3" >
+                <span className="" >
                     <ContentColor $color={info.getValue()} $alto="25px" $ancho="25px" />
                 </span>
             ),
@@ -90,7 +92,7 @@ export const Table = ({
 
         {
             accessorKey: "actions",
-            header: "Acciones",
+            header: (getDeviceType()==deviceTypes.tablet)? APP_CONFIG.table.labelActions:APP_CONFIG.table.smalLabelActions,
             enableSorting: false,
             cell: (info) => <ContentActionsTable
                 funcEdit={() => editItem(info.row.original)}
@@ -103,7 +105,7 @@ export const Table = ({
     /* custom columns */
     const customColumns = tableColumns.map(item => ({ accessorKey: item.accessorKey, responsive: '' }))
     customColumns[0].responsive = 'w-2/12 sm:block'
-    customColumns[1].responsive = 'w-5/12 sm:block sm:w-6/12'
+    customColumns[1].responsive = 'w-6/12 sm:block'
     customColumns[2].responsive = 'w-2/12 sm:block'
     customColumns[3].responsive = 'w-2/12 sm:block'
 

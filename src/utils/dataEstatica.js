@@ -15,6 +15,8 @@ export const APP_CONFIG = {
 
     table: {
         pageSize: 6,
+        labelActions: 'Opciones',
+        smalLabelActions: 'Opt?'
     },
 
     defaultValues: {
