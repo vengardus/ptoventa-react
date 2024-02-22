@@ -24,8 +24,8 @@ export const BtnFilter = ({
 
 
 const Container = styled.button`
-    min-height: 50px;
-    min-width: 50px;
+    min-height: 40px;
+    min-width: 40px;
     border-radius: 50%;
     background: ${(props) => props.$bgColor};
     box-shadow: 20px 20px 60px #bebebe -20px -20px 60px #ffffff;

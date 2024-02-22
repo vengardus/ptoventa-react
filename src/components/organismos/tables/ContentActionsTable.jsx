@@ -6,10 +6,11 @@ export const ContentActionsTable = ({
     funcDelete
 }) => {
   return (
-    <div className="flex gap-3 pl-0">
+    <div className="flex gap-4 pl-0">
         <ActionTable 
             func={funcEdit}
-            color={'#ee44ee'}
+            // color={'#ee44ee'}
+            color={'white'}
             fontSize={'18px'}
             icon={v.iconeditarTabla}
         />

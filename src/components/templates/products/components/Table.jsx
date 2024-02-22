@@ -1,4 +1,4 @@
-import { useBrandStore } from "../../../../stores/brand.store"
+import { useProductStore } from "../../../../stores/product.store"
 import { deviceTypes } from "../../../../styles/breakpoints"
 import { APP_CONFIG } from "../../../../utils/dataEstatica"
 import { getDeviceType } from "../../../../utils/deviceType"
@@ -11,7 +11,7 @@ export const Table = ({
     data,
     actionRegister,
 }) => {
-    const deleteRegister = useBrandStore((state) => state.delete)
+    const deleteRegister = useProductStore((state) => state.delete)
 
     const editItem = (item) => {
         actionRegister({ action: APP_CONFIG.actionCrud.update, data: item })
@@ -35,14 +35,27 @@ export const Table = ({
 
     const tableColumns = [
         {
-            accessorKey: "description",
+            accessorKey: "name",
             header: "Descripción",
             cell: (info) => <span className="md:text-lg">{info.getValue()}</span>
         },
 
         {
+            accessorKey: "id_category",
+            header: "Categoría",
+            cell: (info) => <span className="md:text-lg">{info.getValue()}</span>
+        },
+
+        {
+            accessorKey: "unit_sale",
+            header: "Und. venta",
+            cell: (info) => <span className="md:text-lg">{info.getValue()}</span>
+        },
+        
+
+        {
             accessorKey: "actions",
-            header: (getDeviceType()==deviceTypes.tablet)? APP_CONFIG.table.labelActions:APP_CONFIG.table.smalLabelActions,
+            header: (getDeviceType() == deviceTypes.tablet) ? APP_CONFIG.table.labelActions : APP_CONFIG.table.smalLabelActions,
             enableSorting: false,
             cell: (info) => <ContentActionsTable
                 funcEdit={() => editItem(info.row.original)}
@@ -54,8 +67,12 @@ export const Table = ({
 
     /* custom columns */
     const customColumns = tableColumns.map(item => ({ accessorKey: item.accessorKey, responsive: '' }))
-    customColumns[0].responsive = 'w-10/12'
+    customColumns[0].responsive = 'w-6/12'
+    customColumns[1].responsive = 'w-2/12'
+    customColumns[2].responsive = 'w-2/12'
 
+
+    
     return (
         <TableGeneric
             data={data ?? []}

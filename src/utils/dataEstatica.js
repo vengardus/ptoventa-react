@@ -23,7 +23,8 @@ export const APP_CONFIG = {
         currencySymbol: 'S/.',
         genericDescription: "Genérica",
         codSuperadmin: 'S',
-        defaultColor: "#F44336"
+        defaultColor: "#F44336",
+        
     },
 
     errorCodes: {
@@ -51,6 +52,11 @@ export const APP_CONFIG = {
     theme: {
         light: "0",
         dark: "1",
+    },
+
+    saleUnits: {
+        unit: 'UND',
+        granel: 'GRN'
     },
 
     breakpoints: {
@@ -232,3 +238,16 @@ export const TypeDocumentData = [
         icon: "👑",
     },
 ];
+
+
+export const SaleUnitsData = [
+    {
+        id: APP_CONFIG.saleUnits.unit,
+        description: 'Unidades'
+    },
+    {
+        id: APP_CONFIG.saleUnits.granel,
+        description: 'Granel (decimales)'
+    }
+]
+''

@@ -9,5 +9,7 @@ export const useModuleQuery = () => {
         queryFn: getAll
     })
 
+    console.log('Modules-response', query)
+
     return query
 }

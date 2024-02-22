@@ -13,6 +13,7 @@ export class CategoryModel extends SupabaseCrud {
     async getAll(p) {
         console.log("getAll.categories", p);
         const data = await super.getByField("id_company", p.id_company, false);
+        console.log('category-All--resp', data)
         return data;
     }
 

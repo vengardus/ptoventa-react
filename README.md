@@ -72,23 +72,14 @@ Configurada con proyecto Supabase: gardodb
 
 ## Supabase: Fnctions and Triggers
 
-```plpgsql: YA NO VA!!! trigger & function insert_default from pv_companies
-create or replace function insert_default_from_company()
-returns trigger
-language plpgsql
-as $$
-begin
-  insert into pv_doc_types(description, id_company)
-  values('Genérico', new.id);
-  return new;
-end
-$$;
+```plpgsql: alter_tanles
+ALTER TABLE pv_categories DROP CONSTRAINT categories_unique_description_company; 
 
+ALTER TABLE pv_categories ADD CONSTRAINT categories_unique_description_company UNIQUE (description, id_company);
 
-create or replace trigger trigger_company_default 
-after insert on pv_companies
-for each row
-execute function insert_default_from_company();
+alter table pv_brands add constraint brands_unique_description_company unique (description, id_company);
+
+alter table pv_products add constraint products_unique_name_category_company unique (name, id_category, id_company);
 ```
 
 ```plpgsql: inser_superadmin
@@ -98,7 +89,9 @@ CREATE OR REPLACE FUNCTION insert_superadmin(
   p_email text, 
   p_currency_symbol text,
   p_company_name text,
-  p_doc_type_name text
+  p_doc_type_description text,
+  p_category_description text,
+  p_category_color text
 )
 RETURNS INT
 LANGUAGE plpgsql
@@ -121,18 +114,18 @@ BEGIN
     
     BEGIN
         -- Insert company
-        INSERT INTO pv_companies(name, currency_symbol, id_auth)
-        VALUES(p_company_name, p_currency_symbol, p_id_auth)
+        INSERT INTO pv_companies(name, currency_symbol, id_auth, is_default)
+        VALUES(p_company_name, p_currency_symbol, p_id_auth, true)
         RETURNING id INTO new_id_company;
 
         -- Insert doc_type
-        INSERT INTO pv_doc_types(description, id_company)
-        VALUES(p_doc_type_name, new_id_company)
+        INSERT INTO pv_doc_types(description, id_company, is_default)
+        VALUES(p_doc_type_description, new_id_company, true)
         RETURNING id INTO new_id_doc_type;
         
         -- Insert branch
-        INSERT INTO pv_branches(name, id_company)
-        VALUES(p_company_name, new_id_company)
+        INSERT INTO pv_branches(name, id_company, is_default)
+        VALUES(p_company_name, new_id_company, true)
         RETURNING id INTO new_id_branch;
 
         -- Insert user
@@ -143,6 +136,14 @@ BEGIN
         -- insert user_branch
         INSERT INTO pv_user_branch(id_user, id_branch)
         VALUES(new_id_user, new_id_branch);
+
+        -- insert category
+        INSERT INTO pv_categories(description, color, id_company, is_default)
+        VALUES(p_category_description, p_category_color, new_id_company, true);
+
+        -- insert brand
+        INSERT INTO pv_brands(description, id_company, is_default)
+        VALUES(p_category_description, new_id_company, true);
 
         RETURN new_id_user;
     EXCEPTION

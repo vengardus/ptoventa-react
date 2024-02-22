@@ -6,15 +6,15 @@ import { convertirCapitalize } from "../../../../utils/conversiones";
 import { APP_CONFIG } from "../../../../utils/dataEstatica";
 import { modalAlert } from "../../../../utils/modalAlert";
 import { RegisterHeader } from "../base/RegisterHeader";
-import { PictureContainer } from "../styles/registerCategory";
 import { v } from "../../../../styles/variables";
 import { BtnSave } from "../../../moleculas/BtnSave";
 import { CategoryForm } from "./CategoryForm";
 import { Icon } from "../../../atomos/Icon";
+import { PictureContainer } from "./PictureContainer";
 
 const modelNameSingular = 'categoría'
 
-export function RegisterCategory({
+export function     RegisterCategory({
     onClose,
     dataSelect,
     action,
@@ -108,8 +108,8 @@ export function RegisterCategory({
 
                     <PictureContainer>
                         {fileurl != null ? (
-                            <div className="ContentImage">
-                                <img src={fileurl}></img>
+                            <div className="overflow">
+                                <img className="w-full object-containt" src={fileurl}></img>
                             </div>
                         ) : (
                             <Icon>{<v.iconoimagenvacia />}</Icon>
@@ -126,6 +126,7 @@ export function RegisterCategory({
                             type="file"
                             ref={ref}
                             onChange={(e) => prepareImage(e)}
+                            className="hidden"
                         ></input>
                     </PictureContainer>
 

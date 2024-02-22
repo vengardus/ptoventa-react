@@ -1,6 +1,6 @@
+import { useQuery } from '@tanstack/react-query'
 import { useUserStore } from '../stores/user.store'
 import { useCompanyStore } from '../stores/company.store'
-import { useQuery } from '@tanstack/react-query'
 
 export const useInitLoadQuery = () => {
     const userGet = useUserStore((state) => state.get)
