@@ -101,8 +101,9 @@ export function     RegisterCategory({
             ) : (
                 <div className="subContainerRegisterForm">
                     <RegisterHeader
-                        action={action}
-                        modelNameSingular={modelNameSingular}
+                        title={action == APP_CONFIG.actionCrud.update
+                            ? `Editar ${modelNameSingular}:`
+                            : `Agregar ${convertirCapitalize(modelNameSingular)}:`}
                         onClose={onClose}
                     />
 

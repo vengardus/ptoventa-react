@@ -1,13 +1,13 @@
 import { create } from "zustand";
-import { SaleUnitsData } from "../utils/dataEstatica";
 
 
 export const useRegisterProductStore = create((set, get) => ({
     isWarehouse: false,
     isMultiPrices: false,
-    unitSaleSelect: null, //SaleUnitsData[0],
+    unitSaleSelect: null,
     categorySelect: null,
-
+    stockBranches: [],
+    branchSelect: null,
 
     getIsWarehouse: () => {
         return get().isWarehouse
@@ -24,8 +24,7 @@ export const useRegisterProductStore = create((set, get) => ({
     },
 
     getUnitSaleSelect: () => {
-        //const value = get().unitSaleSelect
-        //console.log('store.getUnitSaleSelect', value)
+
         return get().unitSaleSelect
     },
     setUnitSaleSelect: (value) => {
@@ -35,12 +34,28 @@ export const useRegisterProductStore = create((set, get) => ({
     },
 
     getCategorySelect: () => {
-        //console.log('GET-CAT', get().categorySelect)
         return get().categorySelect
     },
     setCategorySelect: (value) => {
-        //console.log('SET-CAT', value)
         set({ categorySelect: value })
+    },
+
+    getStockBranches: () => {
+        return get().stockBranches
+    },
+
+    addStockBranches: (newItem) => {
+        console.log('add', newItem)
+        set(state => ({
+            stockBranches:
+                [...state.stockBranches.filter(item => item.id_branch != newItem.id_branch),
+                    newItem]
+        }))
+    },
+
+    setBranchSelect: (item) => {
+        console.log('set branch', item)
+        set({ branchSelect: item })
     }
 
 }))

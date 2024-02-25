@@ -14,6 +14,8 @@ import { useProductMutation } from "../../../../hooks/useProductMutation";
 import { useCategoryStore } from "../../../../stores/category.store";
 import { getIndexArray } from "../../../../utils/lib";
 import { useCallback } from "react";
+import { convertirCapitalize } from "../../../../utils/conversiones";
+import { useBranchStore } from "../../../../stores/branch.store";
 
 
 const modelNameSingular = 'producto'
@@ -50,7 +52,6 @@ export function ProductRegister({
     const setIsWarehouse = useRegisterProductStore(state => state.setIsWarehouse)
     // const getIsMultiPrices = useRegisterProductStore(state => state.getIsMultiPrices)
     const setIsMultiPrices = useRegisterProductStore(state => state.setIsMultiPrices)
-
 
 
     // const mutationRegisterProduct = useMutation({
@@ -128,8 +129,9 @@ export function ProductRegister({
             ) : (
                 <div className="subContainerRegisterForm">
                     <RegisterHeader
-                        action={action}
-                        modelNameSingular={modelNameSingular}
+                        title={action == APP_CONFIG.actionCrud.update
+                            ? `Editar ${modelNameSingular}:`
+                            : `Agregar ${convertirCapitalize(modelNameSingular)}:`}
                         onClose={onClose}
                     />
 

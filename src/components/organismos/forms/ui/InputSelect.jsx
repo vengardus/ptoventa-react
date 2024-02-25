@@ -1,12 +1,19 @@
 import { useEffect } from "react";
 import { useState } from "react";
+import { v } from "../../../../styles/variables";
+
+/*
+    si isDescriptionName es true => el nombre de la columna de la data será: descrition
+    sino será: name
+*/
 
 export const InputSelect = ({
     data,
     name,
     label,
     defaultItem,
-    onSelect
+    onSelect,
+    isDescriptionName = true
 }
 ) => {
     const [showSelect, setShowSelect] = useState(false)
@@ -39,7 +46,17 @@ export const InputSelect = ({
                 onClick={() => setShowSelect(!showSelect)}
             >
                 <span className="">{label}:</span>
-                <span className="border border-blue-500 py-2 px-4 w-full">{itemSelect?.description}</span>
+                <span className="border border-blue-500 py-2 px-4 w-full flex justify-between hover:cursor-pointer">
+                    <span>
+                        {
+                            !itemSelect? ''
+                            : isDescriptionName ? itemSelect?.description : itemSelect.name
+                        }
+                    </span>
+                    <span className="">
+                        {<v.iconoFlechabajo />}
+                    </span>
+                </span>
             </label>
             {
                 showSelect &&
@@ -49,7 +66,11 @@ export const InputSelect = ({
                     className="pt-2 bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-blue-500 focus:border-blue-500 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500 ">
                     {/* <option selected disabled className="">Seleccione categoría</option> */}
                     {
-                        data.map(item => <option key={item.id} value={item.id} >{item.description}</option>)
+                        data.map(item => <option key={item.id} value={item.id} >
+                            {
+                                isDescriptionName ? item.description : item.name
+                            }
+                        </option>)
                     }
                 </select>
             }

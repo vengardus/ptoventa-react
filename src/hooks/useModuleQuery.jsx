@@ -6,7 +6,8 @@ export const useModuleQuery = () => {
 
     const query = useQuery({
         queryKey: ['getAll_Module'],
-        queryFn: getAll
+        queryFn: getAll,
+        staleTime: 0
     })
 
     console.log('Modules-response', query)

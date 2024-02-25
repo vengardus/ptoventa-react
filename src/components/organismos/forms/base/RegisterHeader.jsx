@@ -1,20 +1,12 @@
-import { convertirCapitalize } from "../../../../utils/conversiones"
-import { APP_CONFIG } from "../../../../utils/dataEstatica"
-
 
 export const RegisterHeader = ({
-    action,
-    modelNameSingular,
+    title='', 
     onClose
 }) => {
     return (
         <div className="flex justify-between items-center mb-7 font-semibold text-xl">
             <section className="font-medium text-xl"> 
-                <h1>
-                    {action == APP_CONFIG.actionCrud.update
-                        ? `Editar ${modelNameSingular}:`
-                        : `Agregar ${convertirCapitalize(modelNameSingular)}:`}
-                </h1>
+                <h1>{title}</h1>
             </section>
 
             <section>

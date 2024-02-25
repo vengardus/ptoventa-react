@@ -7,12 +7,15 @@ export const InputSwitch = ({
     textSize = 'text-md',
     defaultValue,
     onSelect,
+    onRefresh=null
 }) => {
     const [state, setState] = useState(false)
 
     const handleOnChange = (value) => {
         setState(value)
         onSelect(value)
+        if (onRefresh)
+            onRefresh()
     }
 
     useEffect(() => {
@@ -20,7 +23,7 @@ export const InputSwitch = ({
     }, [defaultValue])
 
     return (
-        <label className="inline-flex items-center mb-5 cursor-pointer">
+        <label className="inline-flex items-center my-1 cursor-pointer">
             <input
                 id={name}
                 name={name}
