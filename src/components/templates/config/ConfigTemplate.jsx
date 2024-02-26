@@ -33,7 +33,7 @@ export function ConfigTemplate() {
     return (
         <Container>
             <div id="cards">
-                {dataModule.map((item, index) => {
+                {dataModule?.map((item, index) => {
                     return (
                         <Link
                             to={item.link}

@@ -24,7 +24,6 @@ export const useRegisterProductStore = create((set, get) => ({
     },
 
     getUnitSaleSelect: () => {
-
         return get().unitSaleSelect
     },
     setUnitSaleSelect: (value) => {

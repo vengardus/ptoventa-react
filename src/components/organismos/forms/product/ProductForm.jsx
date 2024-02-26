@@ -67,7 +67,7 @@ export const ProductForm = ({
                     <section className="md:w-1/2">
                         <InputText2
                             name={'name'}
-                            label={'Descripción'}
+                            label={'Nombre'}
                             register={register}
                             defaultValue={dataSelect.name}
                             registerProps={{}}

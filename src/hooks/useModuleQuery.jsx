@@ -1,5 +1,6 @@
 import { useQuery } from "@tanstack/react-query"
 import { useModuleStore } from "../stores/module.store"
+import { useEffect } from "react"
 
 export const useModuleQuery = () => {
     const getAll = useModuleStore((state) => state.getAll)
@@ -10,7 +11,9 @@ export const useModuleQuery = () => {
         staleTime: 0
     })
 
-    console.log('Modules-response', query)
+    useEffect(()=>{
+        console.log('moduleQuery-response', query)
+    }, [query])
 
     return query
 }

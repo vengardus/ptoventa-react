@@ -16,6 +16,7 @@ import { getIndexArray } from "../../../../utils/lib";
 import { useCallback } from "react";
 import { convertirCapitalize } from "../../../../utils/conversiones";
 import { useBranchStore } from "../../../../stores/branch.store";
+import { useCompanyStore } from "../../../../stores/company.store";
 
 
 const modelNameSingular = 'producto'
@@ -35,10 +36,6 @@ export function ProductRegister({
     const [openRegisterCategory, setOpenRegisterCategory] = useState(false)
     const [subAction, setSubAction] = useState('')
 
-    //const isWarehouse = useRegisterProductStore((state)=>state.isWarehouse)
-    const mutationRegisterProduct = useProductMutation()
-
-
     const categorySelect = useCategoryStore((state) => state.itemSelect)
     const dataCategory = useCategoryStore((state) => state.data)
 
@@ -53,6 +50,19 @@ export function ProductRegister({
     // const getIsMultiPrices = useRegisterProductStore(state => state.getIsMultiPrices)
     const setIsMultiPrices = useRegisterProductStore(state => state.setIsMultiPrices)
 
+    const currentCompany = useCompanyStore((state)=>state.currentCompany)
+    
+    const closeForm = () => {
+        onClose();
+        setIsExploding(true);
+    };
+    //const isWarehouse = useRegisterProductStore((state)=>state.isWarehouse)
+    const mutationRegisterProduct = useProductMutation({
+        action, 
+        dataSelect, 
+        closeForm,
+        id_company: currentCompany?.id
+    })
 
     // const mutationRegisterProduct = useMutation({
     //     mutationKey: ["register_Product"],
@@ -60,10 +70,6 @@ export function ProductRegister({
     //     onError: (err) => console.log("Ocurrió un error", err.message),
     // });
 
-    // const closeForm = () => {
-    //     onClose();
-    //     setIsExploding(true);
-    // };
 
     const addCategory = () => {
         setOpenRegisterCategory(!openRegisterCategory)
