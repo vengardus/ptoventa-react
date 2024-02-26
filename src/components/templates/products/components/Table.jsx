@@ -41,7 +41,7 @@ export const Table = ({
         },
 
         {
-            accessorKey: "id_category",
+            accessorKey: "pv_categories.description",
             header: "Categoría",
             cell: (info) => <span className="md:text-lg">{info.getValue()}</span>
         },
@@ -51,7 +51,16 @@ export const Table = ({
             header: "Und. venta",
             cell: (info) => <span className="md:text-lg">{info.getValue()}</span>
         },
-        
+
+        {
+            accessorKey: "is_warehouse_multi_prices",
+            header: "ST/MP",
+            cell: (info) => <span className="md:text-md">
+                {info.row.original.is_warehouse ? 'Si' : 'No'}
+                /{info.row.original.is_multi_prices ? 'Si' : 'No'}
+            </span>
+        },
+
 
         {
             accessorKey: "actions",
@@ -67,12 +76,13 @@ export const Table = ({
 
     /* custom columns */
     const customColumns = tableColumns.map(item => ({ accessorKey: item.accessorKey, responsive: '' }))
-    customColumns[0].responsive = 'w-6/12'
-    customColumns[1].responsive = 'w-2/12'
+    customColumns[0].responsive = 'w-4/12'
+    customColumns[1].responsive = 'w-3/12'
     customColumns[2].responsive = 'w-2/12'
+    customColumns[3].responsive = 'w-2/12'
 
 
-    
+
     return (
         <TableGeneric
             data={data ?? []}

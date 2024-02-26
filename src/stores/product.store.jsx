@@ -27,18 +27,20 @@ export const useProductStore = create((set) => ({
         set({ itemSelect: p })
     },
 
-    insert: async (p, file) => {
+    insert: async (p) => {
         const oModel = new ProductModel()
-        const success = await oModel.insert(p, file)
+        const resp = await oModel.insert(p)
+        console.log('store-resp', resp)
 
-        if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) 
+        if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) {
             oModel.message = 'Descripción de producto ya existe.'
+        }
 
-        if (success)
+        if (!oModel.error)
             set((state) => ({
                 data: state.getAll(state.parameters)
             }))
-        return { success, message: oModel.message }
+        return { success: oModel.error, message: oModel.message }
     },
 
     delete: async (p) => {
@@ -53,9 +55,9 @@ export const useProductStore = create((set) => ({
         return ok
     },
 
-    update: async (p, file) => {
+    update: async (p) => {
         const oModel = new ProductModel()
-        const success = await oModel.update(p, file)
+        const success = await oModel.update(p)
         
         if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) 
             oModel.message = 'Descripción de producto ya existe.'
