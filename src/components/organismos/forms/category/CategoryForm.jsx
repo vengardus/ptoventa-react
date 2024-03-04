@@ -24,7 +24,7 @@ export const CategoryForm = ({
             <div className="formSection">
                 <InputText2
                     name={'description'}
-                    txtLabel={'Descripción'}
+                    label={'Descripción'}
                     register={register}
                     defaultValue={dataSelect.description}
                     registerProps={{}}

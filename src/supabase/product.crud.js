@@ -6,6 +6,26 @@ export class ProductModel extends SupabaseCrud {
         super("pv_products");
     }
 
+    async insert(p) {
+        console.log('rpc:', p)
+        const data = await this.supabase.rpc("insert_product", p );
+        console.log('resp insert_2', data)
+        this.error = data.error? true: false
+        this.message = this.error? this.error.message : ''
+        this.status = data.status
+        return data.data
+    }
+
+    async update(p) {
+        console.log('rpc:', p)
+        const data = await this.supabase.rpc("update_product", p );
+        console.log('resp uopdate', data)
+        this.error = data.error? true: false
+        this.message = this.error? this.error.message : ''
+        this.status = data.status
+        return data.data
+    }
+
     async getAll(p, order=false) {
         //const data = await this.getByField("id_company", p.id_company);
         const { data, error, status } = await this.supabase

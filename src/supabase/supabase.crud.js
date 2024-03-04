@@ -62,6 +62,25 @@ export class SupabaseCrud {
         return data;
     }
 
+    async insert2(p) {
+        const { data, error, status } = await supabase
+            .from(this.TABLE_NAME)
+            .insert(p)
+            .select()
+
+        this.error = error != null;
+        this.status = status
+        if (this.error) {
+            this.message = error.message;
+            consoleError(
+                `${SupabaseCrud.name}.${this.insert.name}.${this.TABLE_NAME}: ${error.message}`
+            );
+        }
+
+        return data;
+    }
+
+
     async update(p) {
         const { error, status } = await supabase
             .from(this.TABLE_NAME)

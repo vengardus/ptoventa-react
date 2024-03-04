@@ -27,21 +27,70 @@ export const useProductStore = create((set) => ({
         set({ itemSelect: p })
     },
 
-    insert: async (p) => {
+    // insert: async (p, stockBranches) => {
+    //     const oModel = new ProductModel()
+    //     const data = await oModel.insert(p)
+
+
+    //     if (oModel.error) {
+    //         if (oModel.status == APP_CONFIG.errorCodes.alreadyExist)
+    //             oModel.message = 'Descripción de producto ya existe.'
+    //     }
+    //     else {
+    //         const id_product = data.id
+    //         if (stockBranches) {
+    //             const stocks = stockBranches.map(item => ({
+    //                 id_branch: item.id_branch,
+    //                 id_product: id_product,
+    //                 stock: item.stock,
+    //                 stock_min: item.stock_min
+    //             }))
+    //             console.log('Insertará stocks:', stocks)
+    //             const oModelWarehouse = new WarehouseModel()
+    //             const data = await oModelWarehouse.insert2(stocks)
+    //             console.log('resp insert warehouses', data, oModelWarehouse.error, oModelWarehouse.message)
+    //         }
+
+    //         set((state) => ({
+    //             data: state.getAll(state.parameters)
+    //         }))
+    //     }
+    //     return { success: !oModel.error, message: oModel.message }
+    // },
+
+
+    insert: async (p, stockBranches) => {
+        let stocks = []
+        
+        if (stockBranches) {
+            stocks = stockBranches.map(item => ({
+                id_branch: item.id_branch,
+                stock: parseFloat(item.stock),
+                stock_min: parseFloat(item.stock_min)
+            }))
+        }    
+
+        p.branch_stocks = stocks
+        console.log('Insertará stocks:', p)
+        
         const oModel = new ProductModel()
-        const resp = await oModel.insert(p)
-        console.log('store-resp', resp)
+        await oModel.insert(p)
 
-        if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) {
-            oModel.message = 'Descripción de producto ya existe.'
+        if (oModel.error) {
+            if (oModel.status == APP_CONFIG.errorCodes.alreadyExist)
+                oModel.message = 'Descripción de producto ya existe.'
         }
-
-        if (!oModel.error)
+        else {
             set((state) => ({
                 data: state.getAll(state.parameters)
             }))
-        return { success: oModel.error, message: oModel.message }
+        }
+        return { success: !oModel.error, message: oModel.message }
     },
+
+
+
+
 
     delete: async (p) => {
         const oModel = new ProductModel()
@@ -55,20 +104,35 @@ export const useProductStore = create((set) => ({
         return ok
     },
 
-    update: async (p) => {
-        const oModel = new ProductModel()
-        const success = await oModel.update(p)
+    update: async (p, stockBranches) => {
+        let stocks = []
         
-        if (oModel.status == APP_CONFIG.errorCodes.alreadyExist) 
-            oModel.message = 'Descripción de producto ya existe.'
+        if (stockBranches) {
+            stocks = stockBranches.map(item => ({
+                id_branch: item.id_branch,
+                stock: parseFloat(item.stock),
+                stock_min: parseFloat(item.stock_min)
+            }))
+        }    
 
-        if (success) {
+        p.branch_stocks = stocks
+        console.log('Actualizará stocks:', p)
+        
+        const oModel = new ProductModel()
+        await oModel.update(p)
+
+        if (oModel.error) {
+            if (oModel.status == APP_CONFIG.errorCodes.alreadyExist)
+                oModel.message = 'Descripción de producto ya existe.'
+        }
+        else {
             set((state) => ({
                 data: state.getAll(state.parameters)
             }))
         }
-        return { success, message: oModel.error ? oModel.message : null }
+        return { success: !oModel.error, message: oModel.message }
     },
+
 
     filter: async (p) => {
 

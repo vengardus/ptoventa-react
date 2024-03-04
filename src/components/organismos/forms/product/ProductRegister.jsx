@@ -17,6 +17,8 @@ import { useCallback } from "react";
 import { convertirCapitalize } from "../../../../utils/conversiones";
 import { useBranchStore } from "../../../../stores/branch.store";
 import { useCompanyStore } from "../../../../stores/company.store";
+import { modalAlert } from "../../../../utils/modalAlert";
+import { useQuery } from "@tanstack/react-query";
 
 
 const modelNameSingular = 'producto'
@@ -50,18 +52,43 @@ export function ProductRegister({
     // const getIsMultiPrices = useRegisterProductStore(state => state.getIsMultiPrices)
     const setIsMultiPrices = useRegisterProductStore(state => state.setIsMultiPrices)
 
-    const currentCompany = useCompanyStore((state)=>state.currentCompany)
+    const deleteStockBranches = useRegisterProductStore(state => state.deleteStockBranches)
+
+    const currentCompany = useCompanyStore((state) => state.currentCompany)
+
+    const [idProduct, setIdProduct] = useState(null)
+    const getByCompanyProduct_Warehouse = useRegisterProductStore(state => state.getByCompanyProduct_Warehouse)
+
+    const queryWarehouse = useQuery({
+        queryKey: ['getByCompanyProduct_Branch', currentCompany.id, idProduct],
+        queryFn: () => getByCompanyProduct_Warehouse(currentCompany.id, idProduct),
+        enabled: (idProduct!=null  && currentCompany.id!=null),
+    })
+
+    useEffect(()=>{
+        if ( queryWarehouse.isSuccess)
+            console.log('load stocks!!!!')
+    }, [queryWarehouse.isSuccess])
     
-    const closeForm = () => {
-        onClose();
-        setIsExploding(true);
+
+    const handleOnClose = () => {
+        deleteStockBranches()
+        onClose()
+    }
+    const closeFormOk = (success, message) => {
+        if (!success) {
+            modalAlert({ type: 'warning', text: `Error al agregar ${modelNameSingular}: ${message}` })
+            return
+        }
+        handleOnClose()
+        setIsExploding(true)
     };
     //const isWarehouse = useRegisterProductStore((state)=>state.isWarehouse)
     const mutationRegisterProduct = useProductMutation({
-        action, 
-        dataSelect, 
-        closeForm,
-        id_company: currentCompany?.id
+        action,
+        dataSelect,
+        closeForm: closeFormOk,
+        id_company: currentCompany?.id,
     })
 
     // const mutationRegisterProduct = useMutation({
@@ -97,11 +124,14 @@ export function ProductRegister({
     //     }
     // }
 
+
+
     const initData = useCallback(() => {
         setCategorySelect(categorySelect)
         setUnitSaleSelect(SaleUnitsData[0])
         setIsMultiPrices(false)
         setIsWarehouse(false)
+        console.log('init!!!')
     }, [
         categorySelect, setCategorySelect,
         setIsMultiPrices, setUnitSaleSelect, setIsWarehouse
@@ -118,14 +148,19 @@ export function ProductRegister({
 
         setIsWarehouse(dataSelect.is_warehouse)
         setIsMultiPrices(dataSelect.is_multi_prices)
+
+        setIdProduct(dataSelect.id)
+        queryWarehouse.refetch()
     }, [
         dataCategory, dataSelect, setCategorySelect,
         setIsMultiPrices, setIsWarehouse, setUnitSaleSelect
     ])
 
     useEffect(() => {
-        if (action != APP_CONFIG.actionCrud.update) initData()
-        else loadData()
+        if (action != APP_CONFIG.actionCrud.update)
+            initData()
+        else
+            loadData()
     }, [action, loadData, initData])
 
     return (
@@ -138,7 +173,7 @@ export function ProductRegister({
                         title={action == APP_CONFIG.actionCrud.update
                             ? `Editar ${modelNameSingular}:`
                             : `Agregar ${convertirCapitalize(modelNameSingular)}:`}
-                        onClose={onClose}
+                        onClose={handleOnClose}
                     />
 
                     <ProductForm

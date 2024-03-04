@@ -26,57 +26,59 @@ export const useProductMutation = ({
     const getIsMultiPrices = useRegisterProductStore(state => state.getIsMultiPrices)
     const getUnitSaleSelect = useRegisterProductStore(state => state.getUnitSaleSelect)
     const getCategorySelect = useRegisterProductStore(state => state.getCategorySelect)
-    //const getStockBranches = useRegisterProductStore(state => state.getStockBranches)
+    const getStockBranches = useRegisterProductStore(state => state.getStockBranches)
 
     async function registerProduct(data) {
-        let resp = null
+        let ok = false
+        let message = ''
 
         if (action == APP_CONFIG.actionCrud.update) {
             const p = {
-                id:dataSelect.id,
-                name: convertirCapitalize(data.name),
-                price_sale: parseFloat(data.price_sale),
-                price_buy: parseFloat(data.price_buy),
-                id_category: getCategorySelect().id,
-                barcode: data.barcode,
-                cod: data.cod,
-                unit_sale: getUnitSaleSelect().id,
-                stock_min: parseFloat(data.stock_min),
-                is_warehouse: getIsWarehouse(),
-                is_multi_prices: getIsMultiPrices(),
+                p_id: dataSelect.id,
+                p_name: convertirCapitalize(data.name),
+                p_price_sale: parseFloat(data.price_sale),
+                p_price_buy: parseFloat(data.price_buy),
+                p_id_category: getCategorySelect().id,
+                p_barcode: data.barcode,
+                p_cod: data.cod,
+                p_id_company: id_company,
+                p_unit_sale: getUnitSaleSelect().id,
+                p_stock_min: parseFloat(data.stock_min),
+                p_is_warehouse: getIsWarehouse(),
+                p_is_multi_prices: getIsMultiPrices(),
             };
             console.log('UPDATE', p)
-            resp = await updateProduct(p)
+            const stocksBranches= getIsWarehouse()? getStockBranches() : null
+            const { success, message:messageUpdate } = await updateProduct(p, stocksBranches)
             
-            const isWarehouse = getIsWarehouse()
-            if (!isWarehouse && dataSelect.is_warehouse)
-                console.log('DELETE STOCKS')
-            else if (isWarehouse && !dataSelect.is_warehouse)
-                console.log('INSERT STOCKS')
-            else if (isWarehouse && dataSelect.is_warehouse)
-                console.log('DELETE AND SAVE STOCKS')
+            if (success) ok = success
+            else message = messageUpdate
         }
 
         else {
             const p = {
-                name: convertirCapitalize(data.name),
-                price_sale: parseFloat(data.price_sale),
-                price_buy: parseFloat(data.price_buy),
-                id_category: getCategorySelect().id,
-                barcode: data.barcode,
-                cod: data.cod,
-                id_company: id_company,
-                unit_sale: getUnitSaleSelect().id,
-                stock_min: parseFloat(data.stock_min),
-                is_warehouse: getIsWarehouse(),
-                is_multi_prices: getIsMultiPrices(),
+                p_name: convertirCapitalize(data.name),
+                p_price_sale: parseFloat(data.price_sale),
+                p_price_buy: parseFloat(data.price_buy),
+                p_id_category: getCategorySelect().id,
+                p_barcode: data.barcode,
+                p_cod: data.cod,
+                p_id_company: id_company,
+                p_unit_sale: getUnitSaleSelect().id,
+                p_stock_min: parseFloat(data.stock_min),
+                p_is_warehouse: getIsWarehouse(),
+                p_is_multi_prices: getIsMultiPrices(),
             };
-            console.log('INSERT', p)
-            resp = await insertProduct(p)
+
+            const stocksBranches= getIsWarehouse()? getStockBranches() : null
+            const { success, message:messageInsert } = await insertProduct(p, stocksBranches)
+            
+            if (success) ok = success
+            else message = messageInsert
         }
 
-        closeForm();
-        return resp
+        closeForm(ok, message);
+        return ok
 
     }
 

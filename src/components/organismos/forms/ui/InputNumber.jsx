@@ -9,17 +9,27 @@
         }
 */
 
+import { useState } from "react"
+import { useEffect } from "react"
+
+
 export const InputNumber = ({
     children,
     name,
     label,
     defaultValue,
+    autofocus=false,
+    ref,
     register,
     registerProps,
     ...props
 }) => {
 
 
+    useEffect(()=>{
+        console.log('inputNumber', defaultValue)
+        //setRefresh(defaultValue)
+    },[defaultValue])
 
     return (
         <div className="relative z-0 w-full mb-5 group">
@@ -29,6 +39,8 @@ export const InputNumber = ({
                 id={name}
                 name={name}
                 defaultValue={defaultValue}
+                //ref={ref}
+                //autoFocus={autoFocus}
                 className="block py-3.5 px-2 w-full text-sm 
                 text-gray-900 bg-transparent 
                 border-0 border-b-2
