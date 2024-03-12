@@ -64,7 +64,53 @@ pnpm add react-confetti-explosion
 
 ## Configurar tailwind (Instalación con Vite)
 
-Seguir pasos de: [https://tailwindcss.com/docs/guides/vite]
+- Seguir pasos de: [https://tailwindcss.com/docs/guides/vite]
+
+- Instalar talwind merge y clsx
+
+```bash
+pnpm add tailwind-merge
+pnpm add clsx
+```
+
+- Instalar extension VsCode: Tailwind CSS IntelliSense
+
+- Edit .vscode/settings.json in your project folder (or in your user settings)
+
+```json
+"files.associations": {
+  "*.css": "tailwindcss"
+}
+```
+
+- Crear función para manejar merge y clsx juntos (opcional)
+
+```js
+import { twMerge } from "tailwind-merge"
+import { clsx } from "clsx"
+
+export const cn = (...inputs) => {
+    return twMerge(clsx(inputs))
+}
+```
+
+- Utilizarlo:
+
+```jsx
+export const ButtonKeyboard = ({
+    label = 'opction',
+    bg = "bg-blue-500",
+    color = "text-white",
+    height = "h-[2rem]"
+}) => {
+    return (
+        // buttonKeyboard es una clase definda en un css
+        <div className={cn('buttonKeyboard', color, bg, height)}>
+            {label}
+        </div>
+    )
+}
+```
 
 ## Supabase
 

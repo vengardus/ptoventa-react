@@ -12,6 +12,7 @@ import { useInitLoadQuery } from "../hooks/useInitLoadQuery"
 import CategoriesPage from "../pages/categories/CategoriesPage"
 import BrandsPage from "../pages/brands/BrandsPage"
 import ProductsPage from "../pages/produtcs/ProductsPage"
+import { PosPage } from "../pages/pos/PosPage"
 
 
 export function MyRoutes() {
@@ -35,6 +36,8 @@ export function MyRoutes() {
                 <Route path="/config/categories" element={<CategoriesPage />} />
                 <Route path="/config/brands" element={<BrandsPage />} />
                 <Route path="/config/products" element={<ProductsPage />} />
+
+                <Route path="/pos" element={<PosPage />} />
             </Route>
         </Routes>
 

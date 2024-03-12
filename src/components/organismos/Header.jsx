@@ -7,7 +7,10 @@ import { ListMenuDesplegable } from "../moleculas/ListMenuDesplegable";
 import { DesplegableUser } from "../../utils/dataEstatica";
 
 
-export function Header({ stateConfig }) {
+export function Header({
+  stateConfig,
+  justify = 'end'
+}) {
   const signOut = useAuthWithEmailStore((state) => state.signOut)
   const { user } = UserAuth();
 
@@ -19,14 +22,14 @@ export function Header({ stateConfig }) {
 
 
   return (
-    <Container>
+    <Container $justify={justify}>
 
       <Datauser onClick={stateConfig.setState}>
         <div className="imgContainer">
           {
             user?.user_metadata?.avatar_url
-            ? <img src={user?.user_metadata?.avatar_url} /> 
-            : <img src="https://i.ibb.co/kGYgRZ8/programador.png" /> 
+              ? <img src={user?.user_metadata?.avatar_url} />
+              : <img src="https://i.ibb.co/kGYgRZ8/programador.png" />
           }
         </div>
         <BtnCircular
@@ -56,7 +59,7 @@ const Container = styled.div`
   display: flex;
   align-items: center;
   position: relative;
-  justify-content: end;
+  justify-content: ${(props) => props.$justify};
 `;
 const Datauser = styled.div`
   z-index: 10;

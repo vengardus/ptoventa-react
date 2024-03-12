@@ -15,6 +15,7 @@
     "@tanstack/react-query": "^5.12.2",
     "@tanstack/react-query-devtools": "^5.18.1",
     "@tanstack/react-table": "^8.11.2",
+    "clsx": "^2.1.0",
     "dayjs": "^1.11.10",
     "firebase": "^10.7.2",
     "iso-country-currency": "^0.7.2",
@@ -31,6 +32,7 @@
     "styled-components": "^6.1.1",
     "sweetalert2": "^11.10.1",
     "swiper": "^11.0.5",
+    "tailwind-merge": "^2.2.1",
     "zustand": "^4.4.7"
   },
   "devDependencies": {

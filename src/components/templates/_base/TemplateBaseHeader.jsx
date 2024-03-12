@@ -1,7 +1,9 @@
 import { useState } from "react"
 import { Header } from "../../organismos/Header"
 
-export const TemplateBaseHeader = () => {
+export const TemplateBaseHeader = ({
+    justifyHeader = 'end'
+}) => {
     const [state, setState] = useState(false)
 
     return (
@@ -11,6 +13,7 @@ export const TemplateBaseHeader = () => {
                     state: state,
                     setState: () => setState(!state)
                 }}
+                justify={justifyHeader}
             />
         </header>
     )

@@ -1,0 +1,21 @@
+.header {
+    @apply flex items-center justify-between pr-3 pl-[65px] md:pl-0;
+}
+
+.detail {
+    @apply flex border-t-2 pt-1 w-full;
+}
+
+.posKeyboard {
+    @apply flex w-3/12 h-[70vh];
+}
+
+.footer {
+    @apply hidden md:flex;
+}
+
+.buttonKeyboard {
+    @apply flex justify-center items-center
+            border-2 rounded-md border-black 
+            h-[4.5rem] w-[100%];  
+}
