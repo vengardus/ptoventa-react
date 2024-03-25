@@ -1,21 +1,30 @@
 .header {
-    @apply flex items-center justify-between pr-3 pl-[65px] md:pl-0;
+    @apply flex items-center pr-3 pl-[65px] md:pl-0 w-full flex-wrap;
 }
 
 .detail {
-    @apply flex border-t-2 pt-1 w-full;
+    @apply flex flex-col border-t-2 pt-1 w-full md:flex-row;
+    height: calc(70vh - 2rem);
 }
 
 .posKeyboard {
-    @apply flex w-3/12 h-[70vh];
+    @apply flex w-full md:w-3/12;
 }
 
 .footer {
-    @apply hidden md:flex;
+    @apply hidden md:flex  h-[2rem];
 }
 
 .buttonKeyboard {
-    @apply flex justify-center items-center
+    @apply flex justify-center items-center gap-3
             border-2 rounded-md border-black 
             h-[4.5rem] w-[100%];  
+}
+
+.posKeyboardButtonTotal {
+    @apply flex flex-col border-2 w-full py-2 gap-3;
+}
+
+.search {
+    @apply flex flex-col-reverse md:flex-row md:items-center  my-5 w-full gap-2 md:gap-3 px-2;
 }
