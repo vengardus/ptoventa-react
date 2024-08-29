@@ -1,8 +1,8 @@
 # Proyecto: Punto de Venta con React
 
 ## Descripción
-- Basado en curso: [Punto de Venta con React (en construcción)](https://codigo369.com/). 
-- Librerias propias para manejo de la base de datos.
+- Basado en curso: [Punto de Venta con React (en construcción) - codigo369.com](https://codigo369.com/). 
+- Tiene modificaciones en la forma de trabajar con Supabase, utilizo mis propias clases.
 
 ## Tecnologías Utilizadas
 - Styed-Components
