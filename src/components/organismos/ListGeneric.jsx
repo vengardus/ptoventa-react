@@ -3,19 +3,22 @@ import { Device } from "../../styles/breakpoints"
 import { BtnClose } from "../atomos/BtnClose"
 
 
-export const ListGeneric = ({ 
-    data, 
-    setState, 
-    func, 
-    bottom, 
-    scroll }) => {
+export const ListGeneric = ({
+    data,
+    setState,
+    func,
+    bottom = "-380px",
+    height = "360px",
+    scroll }
+) => {
+
     const selectItem = (p) => {
         func(p)
         setState()
     }
 
     return (
-        <Container $bottom={bottom} $scroll={scroll}>
+        <Container $bottom={bottom} $scroll={scroll} $height={height}>
             <section className="ContentClose">
                 <BtnClose func={setState} />
             </section>
@@ -44,15 +47,20 @@ const Container = styled.div`
     position: absolute;
     margin-bottom: 15px;
     bottom: ${(props) => props.$bottom};
-    width: 100%;
+    width: calc(100% - 20px);
     padding: 10px;
     border-radius: 10px;
     gap: 10px;
     z-index:3;
-    height: 230px;
+    /* height: 360px; */
+    height: ${(props) => props.$height};
+    /* max-height: 360px; */
     /* background-color: orange; */
     align-content: start;
     flex-wrap: wrap;
+    border-style:dotted;
+    border-color:gray;
+    border-width:1px;
     @media ${() => Device.tablet} {
         width: 400px;
     }        

@@ -8,7 +8,7 @@
 }
 
 .posKeyboard {
-    @apply flex w-full md:w-3/12;
+    @apply flex w-full md:w-5/12;
 }
 
 .footer {

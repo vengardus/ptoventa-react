@@ -10,17 +10,25 @@ export const PosKeyboard = () => {
                 <div className="flex justify-around gap-3 px-3">
                     <ButtonKeyboard
                         label="Efectivo"
+                        bg="bg-green-500"
+                        color="text-black"
                     />
                     <ButtonKeyboard
                         label="Crédtio"
+                        bg="bg-red-300"
+                        color="text-black"
                     />
                 </div>
                 <div className="flex justify-around gap-3 px-3">
                     <ButtonKeyboard
                         label="Tarjeta"
+                        bg="bg-yellow-500"
+                        color="text-black"
                     />
                     <ButtonKeyboard
                         label="Mixto"
+                        bg="bg-cyan-300"
+                        color="text-black"
                     />
                 </div>
             </section>

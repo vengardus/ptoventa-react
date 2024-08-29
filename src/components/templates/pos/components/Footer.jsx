@@ -7,9 +7,11 @@ export const Footer = () => {
                 <ButtonKeyboard
                     label="Eliminar"
                     className="px-7"
+                    height="h-[3.5rem]"
                 />
                 <ButtonKeyboard
                     label="Ver ventas del día y devoluciones"
+                    height="h-[3.5rem]"
                 />
             </div>
         </>

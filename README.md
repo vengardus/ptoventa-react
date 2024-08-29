@@ -1,7 +1,16 @@
 # Proyecto: Punto de Venta con React
 
-## Resumen
+## Descripción
+- Basado en curso: [Punto de Venta con React (en construcción)](https://codigo369.com/). 
+- Librerias propias para manejo de la base de datos.
 
+## Tecnologías Utilizadas
+- Styed-Components
+- Zustand
+- Supabase
+- React Router Dom
+
+## Resumen
 - Metodología Atomic Design
 - ubuntu v.22.04
 - node v.18.16.0
@@ -118,7 +127,7 @@ Configurada con proyecto Supabase: gardodb
 
 ## Supabase: Fnctions and Triggers
 
-```plpgsql: alter_tanles
+```sql: alter_tanles
 ALTER TABLE pv_categories DROP CONSTRAINT categories_unique_description_company; 
 
 ALTER TABLE pv_categories ADD CONSTRAINT categories_unique_description_company UNIQUE (description, id_company);
@@ -128,7 +137,7 @@ alter table pv_brands add constraint brands_unique_description_company unique (d
 alter table pv_products add constraint products_unique_name_category_company unique (name, id_category, id_company);
 ```
 
-```plpgsql: inser_superadmin
+```sql: inser_superadmin
 CREATE OR REPLACE FUNCTION insert_superadmin(
   p_id_auth text,
   p_id_role int,
@@ -198,6 +207,166 @@ BEGIN
     END;
 END;
 $$;
+```
+
+```sql: trigger sales_detai disminuir stock
+create or replace function sales_detail_sub_stock()
+returns trigger
+language plpgsql
+as $$
+declare 
+  _previous_q numeric;
+  _current_q numeric;
+  _is_warehouse bool;
+  _stock numeric;
+begin 
+  -- Obtener información del producto y su stock en el almacén
+  select is_warehouse into _is_warehouse 
+    from pv_products 
+    where id = new.id_product;
+  select stock into _stock 
+    from pv_warehouses 
+    where id_product = new.id_product and id_branch = new.id_branch;
+
+  -- Verificar si el producto es un producto de almacén
+  if _is_warehouse = true then
+    -- Verificar si hay suficiente stock en el almacén para la venta
+    if _stock >= new.quantity then
+      -- Actualizar el stock en el almacén
+      update pv_warehouses
+        set stock = stock - new.quantity 
+        where id_product = new.id_product and id_branch = new.id_branch;
+
+      -- Obtener el stock actual después de la actualización
+      select stock into _current_q 
+        from pv_warehouses 
+        where id_product = new.id_product and id_branch = new.id_branch;
+
+      -- Calcular el stock anterior
+      select _current_q + new.quantity into _previous_q 
+        from pv_warehouses  
+        where id_product = new.id_product and id_branch = new.id_branch;
+  
+      -- Insertar un registro en la tabla de kardex para registrar la venta
+      insert into pv_kardex(
+        date, 
+        reason, 
+        quantity, 
+        id_product, 
+        type, 
+        state, 
+        total, 
+        price, 
+        previous_q, 
+        current_q) 
+      values (
+        now(), 
+        'venta: id ' || new.id_sale, 
+        new.quantity,
+        new.id_product,
+        'S',
+        'A',
+        new.quantity * new.price_buy,
+        new.price_buy,
+        _previous_q,
+        _current_q
+      );
+    else
+      -- Si no hay suficiente stock, lanzar una excepción
+      raise exception 'El stock debe ser mayor o igual que la cantidad.';
+    end if;
+  end if;
+  
+  -- Retornar el nuevo registro
+  return new;
+end
+$$;
+
+
+create or replace trigger insert_sales_detail_stock_trigger
+after insert on pv_sales_details
+for each row 
+execute function sales_detail_sub_stock();
+```
+
+```sql: trigger sales detail aumentar stock
+create or replace function sales_detail_add_stock()
+returns trigger
+language plpgsql
+as $$
+declare 
+  _previous_q numeric;
+  _current_q numeric;
+  _is_warehouse bool;
+  --_stock numeric;
+begin 
+  -- Obtener información del producto y su stock en el almacén
+  select is_warehouse into _is_warehouse 
+    from pv_products 
+    where id = old.id_product;
+  --select stock into _stock 
+  --  from pv_warehouses 
+  --  where id_product = old.id_product and id_branch = old.id_branch;
+
+  -- Verificar si el producto es un producto de almacén
+  if _is_warehouse = true then
+    -- Verificar si hay suficiente stock en el almacén para la venta
+    --if _stock >= old.quantity then
+      -- Actualizar el stock en el almacén
+      update pv_warehouses
+        set stock = stock + old.quantity 
+        where id_product = old.id_product and id_branch = old.id_branch;
+
+      -- Obtener el stock actual después de la actualización
+      select stock into _current_q 
+        from pv_warehouses 
+        where id_product = old.id_product and id_branch = old.id_branch;
+
+      -- Calcular el stock anterior
+      select _current_q - old.quantity into _previous_q 
+        from pv_warehouses  
+        where id_product = old.id_product and id_branch = old.id_branch;
+  
+      -- Insertar un registro en la tabla de kardex para registrar la venta
+      insert into pv_kardex(
+        date, 
+        reason, 
+        quantity, 
+        id_product, 
+        type, 
+        state, 
+        total, 
+        price, 
+        previous_q, 
+        current_q) 
+      values (
+        now(), 
+        'venta eliminada: id ' || old.id_sale, 
+        old.quantity,
+        old.id_product,
+        'I',
+        'A',
+        old.quantity * old.price_buy,
+        old.price_buy,
+        _previous_q,
+        _current_q
+      );
+    --else
+      -- Si no hay suficiente stock, lanzar una excepción
+    --  raise exception 'El stock debe ser mayor o igual que la cantidad.';
+    --end if;
+  end if;
+  
+  -- Retornar el nuevo registro
+  return old;
+end
+$$;
+
+
+create or replace trigger delete_sales_detail_stock_trigger
+before delete on pv_sales_details
+for each row 
+execute function sales_detail_add_stock();
 ```
 
 ## Ayuda memoria

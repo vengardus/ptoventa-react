@@ -20,6 +20,10 @@ export const useProductStore = create((set) => ({
         set({ data: data })
         set({ itemSelect: data ? data[0] : null })
         set({ parameters: p })
+
+        // para el dataSelect
+        data.forEach(item => {item.description=item.name})
+
         return data
     },
 
@@ -61,18 +65,18 @@ export const useProductStore = create((set) => ({
 
     insert: async (p, stockBranches) => {
         let stocks = []
-        
+
         if (stockBranches) {
             stocks = stockBranches.map(item => ({
                 id_branch: item.id_branch,
                 stock: parseFloat(item.stock),
                 stock_min: parseFloat(item.stock_min)
             }))
-        }    
+        }
 
         p.branch_stocks = stocks
         console.log('Insertará stocks:', p)
-        
+
         const oModel = new ProductModel()
         await oModel.insert(p)
 
@@ -106,18 +110,18 @@ export const useProductStore = create((set) => ({
 
     update: async (p, stockBranches) => {
         let stocks = []
-        
+
         if (stockBranches) {
             stocks = stockBranches.map(item => ({
                 id_branch: item.id_branch,
                 stock: parseFloat(item.stock),
                 stock_min: parseFloat(item.stock_min)
             }))
-        }    
+        }
 
         p.branch_stocks = stocks
         console.log('Actualizará stocks:', p)
-        
+
         const oModel = new ProductModel()
         await oModel.update(p)
 
@@ -139,6 +143,10 @@ export const useProductStore = create((set) => ({
         const oModel = new ProductModel()
         const data = await oModel.filter(p)
         set({ data: data })
+
+        // para el dataSelect
+        data.forEach(item => {item.description=item.name})
+
         return true
     }
 }))
